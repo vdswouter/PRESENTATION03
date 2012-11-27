@@ -51,13 +51,13 @@ public class AppModel extends EventDispatcher {
 
         settings = new SettingsVO();
 
-        settings.backgroundType = loadedXML.project.theme.background.@style;
+        settings.backgroundType = String(loadedXML.project.theme.background.@style);
         settings.backgroundColor1 = uint("0x"+loadedXML.project.theme.background.color[0].text());
         if(settings.backgroundType == "solid"){
             settings.backgroundColor2 = settings.backgroundColor1;
         }else{
             settings.backgroundColor2 = uint("0x"+loadedXML.project.theme.background.color[1].text());
-            settings.gradientType = loadedXML.project.theme.background.@type
+            settings.gradientType = String(loadedXML.project.theme.background.@type);
         }
         settings.userName = loadedXML.project.user.name;
         settings.createdDate = loadedXML.project.user.created;
@@ -116,6 +116,21 @@ public class AppModel extends EventDispatcher {
             _currentSlide = value;
             dispatchEvent( new Event(CURRENT_SLIDE_CHANGED) );
             trace('[Appmodel] currentSlide changed');
+        }
+    }
+
+    public function gotoNextSlide():void{
+        if(_currentSlide == (slides.length-1)){
+            currentSlide = 0;
+        }else{
+            currentSlide ++;
+        }
+    }
+    public function gotoPreviousSlide():void{
+        if(_currentSlide == 0){
+            currentSlide = slides.length-1;
+        }else{
+            currentSlide --;
         }
     }
 }

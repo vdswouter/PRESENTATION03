@@ -1,8 +1,9 @@
 <presentation>
     <project>
         <theme>
-            <background style="solid">
-                <color>ff0000</color>
+            <background style="linear">
+                <color>CDCCC9</color>
+                <color>F4F3F0</color>
             </background>
 
         </theme>
@@ -11,29 +12,19 @@
             <created>20/11/12</created>
         </user>
         <title>
-            <size>20</size>
-            <color>ffccff</color>
+            <size>80</size>
+            <color>666666</color>
             <font>Liberator</font>
         </title>
         <list>
-            <size>13</size>
-            <color>ffccff</color>
+            <size>40</size>
+            <color>333333</color>
             <font>Quaver Sans</font>
         </list>
     </project>
 
     <slides>
-        <slide page="1" type="image">
-            <img>
-                <img_path>assets/images/1.jpg</img_path>
-                <scale>0.8</scale>
-            </img>
-        </slide>
-        <slide page="2" type="title">
-            <title>Dit is een titel</title>
-        </slide>
-
-        <slide page="3" type="image+list">
+        <slide page="1" type="image+list">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>
@@ -48,7 +39,138 @@
             </list>
         </slide>
 
+        <slide page="2" type="title">
+            <title>Dit is een titel</title>
+        </slide>
+
+        <slide page="3" type="image">
+            <img>
+                <img_path>assets/images/1.jpg</img_path>
+                <scale>0.8</scale>
+            </img>
+        </slide>
+
         <slide page="4" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="5" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="6" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="7" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="8" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="9" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="10" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="11" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="12" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="13" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="14" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="15" type="title+list">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+        <slide page="16" type="title+list">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>

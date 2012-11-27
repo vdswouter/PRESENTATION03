@@ -32,6 +32,7 @@ public class Main extends MovieClip {
         stage.nativeWindow.x = (Screen.mainScreen.bounds.width - 1024) /2;
         stage.nativeWindow.y = (Screen.mainScreen.bounds.height - 768) /2;
         stage.nativeWindow.title = 'Presentation Engine';
+        stage.frameRate = 60;
 
 
         new FontContainer();
@@ -70,7 +71,6 @@ public class Main extends MovieClip {
         app = new appClass();
         addChild(app);
 
-        trace('startApp');
     }
     }
 

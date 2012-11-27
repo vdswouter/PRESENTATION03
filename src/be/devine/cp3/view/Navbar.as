@@ -1,7 +1,9 @@
 package be.devine.cp3.view {
 
-import be.devine.cp3.Factory.GradientFactory;
+import be.devine.cp3.VO.SlideVO;
+import be.devine.cp3.factory.GradientFactory;
 import be.devine.cp3.model.AppModel;
+import be.devine.cp3.view.components.SlideMiniature;
 
 import flash.display.Sprite;
 import flash.events.Event;
@@ -12,7 +14,7 @@ public class Navbar extends Sprite {
     // Properties
     private var appmodel:AppModel;
     private var bg:Sprite;
-    private var slide:Sprite;
+    private var miniature:SlideMiniature;
     private var slidesCon:Sprite;
     private var mk:Sprite
 
@@ -45,6 +47,7 @@ public class Navbar extends Sprite {
 
         var btnRight:Sprite = GradientFactory.createReflect('vertical', 20, 100, [ 0x9d9887, 0xb1ac99 ], alphas, ratios, this);
         btnRight.x = 1004;
+        btnLeft.buttonMode = btnRight.buttonMode = true;
 
         btnLeft.addEventListener(MouseEvent.CLICK, goToPreviousSlide);
         btnRight.addEventListener(MouseEvent.CLICK, goToNextSlide);
@@ -52,23 +55,19 @@ public class Navbar extends Sprite {
         var xPos:uint = 0;
         spacing = 10;
 
-        for (var i:uint = 1; i <= 15; i++) {
-            slide = new Sprite();
-            slide.graphics.beginFill(Math.random() * 0xffffff);
-            slide.graphics.drawRect(0, 0, bg.width/10, 80);
-            slide.graphics.endFill();
-            slide.buttonMode = true;
-            appmodel.slides.push(slide);
+        for each(var slidevo:SlideVO in appmodel.slides){
+            miniature = new SlideMiniature(slidevo, appmodel.settings);
+            miniature.x = xPos;
+            miniature.y = 0;
+            miniature.addEventListener(MouseEvent.CLICK, setSlide);
+            miniature.buttonMode = true;
+            miniature.mouseChildren = true;
+            slidesCon.addChild(miniature);
 
-            slide.x = xPos;
-            slidesCon.addChild(slide);
 
-            xPos += slide.width + spacing;
-
-            slide.addEventListener(MouseEvent.CLICK, loadSlide);
+            xPos += miniature.width + spacing;
         }
 
-        appmodel.currentSlide = 0;
 
         slidesCon.x = bg.x + 10;
         slidesCon.y = bg.y + 10;
@@ -85,23 +84,22 @@ public class Navbar extends Sprite {
         appmodel.addEventListener(AppModel.NAVBAR_NEXT_SLIDE, goToNextSlide);
     }
 
-    private function loadSlide(e:MouseEvent):void {
+    private function setSlide(e:MouseEvent):void {
 
-        var clickedSlide:uint = appmodel.slides.indexOf(e.currentTarget);
-        appmodel.currentSlide = clickedSlide;
-        trace('clickedSlide:', clickedSlide);
+        var clickedSlideVO:SlideMiniature = e.currentTarget as SlideMiniature;
+        appmodel.currentSlide = clickedSlideVO.slidevo.slideNumber -1;
     }
 
     private function goToPreviousSlide(e:Event):void {
 
         if( slidesCon.x < bg.x + 10)
-            slidesCon.x += 10 + slide.width;
+            slidesCon.x += 10 + miniature.width;
     }
 
     private function goToNextSlide(e:Event):void {
 
-        if( slidesCon.x > -((slidesCon.width - bg.width) - slide.width) )
-            slidesCon.x -= 10 + slide.width;
+        if( slidesCon.x > -((slidesCon.width - bg.width) - miniature.width) )
+            slidesCon.x -= 10 + miniature.width;
     }
 }
 }

@@ -1,6 +1,6 @@
 package be.devine.cp3.view.components {
-import be.devine.cp3.Factory.GradientFactory;
-import be.devine.cp3.Factory.TextfieldFactory;
+import be.devine.cp3.factory.GradientFactory;
+import be.devine.cp3.factory.TextfieldFactory;
 import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.VO.SlideVO;
 
@@ -23,8 +23,9 @@ public class Slide extends Sprite {
     private var slidevo:SlideVO;
     private var settings:SettingsVO;
 
-    private var type:String;
     private var title:TextField;
+
+    private var foto:Loader;
 
 
     // Constructor
@@ -41,8 +42,8 @@ public class Slide extends Sprite {
     }
 
     private function addedToStageHandler(e:Event):void {
-
-        switch( type ){
+        trace("[slide] "+slidevo.slideType);
+        switch( slidevo.slideType ){
             case 'title':
                 createTitle();
                 break;
@@ -95,11 +96,22 @@ public class Slide extends Sprite {
     private function createImage():void {
         trace('[SLIDE] createImage');
 
-        var foto:Loader = new Loader();
+        foto = new Loader();
         foto.load(new URLRequest(slidevo.img_path));
-        foto.x = slidevo.img_xpos;
-        foto.y = slidevo.img_ypos;
-        foto.scaleX = foto.scaleY = slidevo.img_scale;
+        foto.contentLoaderInfo.addEventListener(Event.COMPLETE, SingleFotoLoaded);
+    }
+
+    private function SingleFotoLoaded(event:Event):void {
+
+        var scale:Number;
+        if(foto.width << foto.height){
+            scale = (500/foto.height);
+        }else{
+            scale = (600/foto.width);
+        }
+        foto.scaleX = foto.scaleY = scale;
+        foto.x = (stage.stageWidth - foto.width) /2;
+        foto.y = (stage.stageHeight - foto.height) /2;
         addChild(foto);
 
     }
@@ -109,12 +121,9 @@ public class Slide extends Sprite {
     private function createImageList() {
         trace('[SLIDE] createImageList');
 
-        var foto:Loader = new Loader();
+        foto = new Loader();
         foto.load(new URLRequest(slidevo.img_path));
-        foto.x = slidevo.img_xpos;
-        foto.y = slidevo.img_ypos;
-        foto.scaleX = foto.scaleY = slidevo.img_scale;
-        addChild(foto);
+        foto.contentLoaderInfo.addEventListener(Event.COMPLETE, ListFotoLoaded);
 
         title = TextfieldFactory.create(new TextFormat(settings.titleFont, settings.titleFontSize, settings.titleColor), this, 0, 0, slidevo.Title);
         title.x = stage.stageWidth /2 - title.width /2;
@@ -132,6 +141,19 @@ public class Slide extends Sprite {
         listCon.x = stage.stageWidth /2 - listCon.width /2;
         listCon.y = stage.stageHeight /2 - listCon.height /2;
         addChild(listCon);
+    }
+
+    private function ListFotoLoaded(event:Event):void {
+        var scale:Number;
+        if(foto.width << foto.height){
+            scale = (300/foto.height);
+        }else{
+            scale = (300/foto.width);
+        }
+        foto.scaleX = foto.scaleY = scale;
+        foto.x = (stage.stageWidth - foto.width) /8;
+        foto.y = (stage.stageHeight - foto.height) /2;
+        addChild(foto);
     }
 
 

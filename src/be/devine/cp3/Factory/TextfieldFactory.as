@@ -1,4 +1,4 @@
-package be.devine.cp3.Factory
+package be.devine.cp3.factory
 {
 import flash.display.DisplayObjectContainer;
 import flash.text.TextField;

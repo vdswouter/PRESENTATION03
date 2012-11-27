@@ -1,6 +1,6 @@
 package be.devine.cp3.view.components {
-import be.devine.cp3.Factory.GradientFactory;
-import be.devine.cp3.Factory.TextfieldFactory;
+import be.devine.cp3.factory.GradientFactory;
+import be.devine.cp3.factory.TextfieldFactory;
 import be.devine.cp3.VO.SettingsVO;
 
 import flash.display.Sprite;
@@ -18,8 +18,7 @@ public class SlideBackground extends Sprite{
     public function SlideBackground(settingsvo:SettingsVO) {
         this.settingsvo = settingsvo;
 
-        this.width = 1024;
-        this.height = 768;
+
 
         generateBackground();
         generateInfo();
@@ -27,11 +26,12 @@ public class SlideBackground extends Sprite{
 
     private function generateInfo():void {
         var infotext:TextField;
-        var tf:TextFormat = new TextFormat('Quaver Sans',13,0x333333);
+        var tf:TextFormat = new TextFormat('Quaver Sans',15,0x333333);
         infotext = TextfieldFactory.create(tf, null,0,0,settingsvo.createdDate+"  "+settingsvo.userName);
         addChild(infotext);
-        infotext.x = this.width - infotext.width -10;
-        infotext.y = this.height - infotext.height -10;
+        infotext.x = (1024 - 140);
+        infotext.y = (768 - 50);
+        trace("[infotext width] "+ infotext.width);
     }
 
     private function generateBackground():void {
@@ -39,15 +39,15 @@ public class SlideBackground extends Sprite{
 
         switch (settingsvo.backgroundType){
             case "linear":
-                    background = GradientFactory.createLinear('vertical',this.width,this.height,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
+                    background = GradientFactory.createLinear('vertical',1024,768,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
                 break;
             case "reflect":
-                    background = GradientFactory.createReflect('vertical',this.width,this.height,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
+                    background = GradientFactory.createReflect('vertical',1024,768,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
                 break;
             default:
                 background = new Sprite();
                 background.graphics.beginFill(settingsvo.backgroundColor1);
-                background.graphics.drawRect(0,0,this.width,this.height);
+                background.graphics.drawRect(0,0,1024,768);
                 background.graphics.endFill();
                 break;
         }

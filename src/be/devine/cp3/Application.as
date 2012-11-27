@@ -52,9 +52,9 @@ public class Application extends Sprite{
 
         if (e.keyCode == Keyboard.SPACE) {
             if (isNavbar)
-                TweenLite.to(navbar, 1, {y:stage.stageHeight, ease:Sine.easeOut});
+                TweenLite.to(navbar, 0.5, {y:stage.stageHeight, ease:Sine.easeOut});
             else
-                TweenLite.to(navbar, 1, {y:stage.stageHeight - navbar.height, ease:Sine.easeOut});
+                TweenLite.to(navbar, 0.5, {y:stage.stageHeight - navbar.height, ease:Sine.easeOut});
 
             isNavbar = !isNavbar;
         }
@@ -63,6 +63,11 @@ public class Application extends Sprite{
         }
         else if( e.keyCode == Keyboard.RIGHT && isNavbar == true ){
             appmodel.navBarNextSlide();
+        }else if( e.keyCode == Keyboard.LEFT && isNavbar == false ){
+            appmodel.gotoPreviousSlide();
+        }
+        else if( e.keyCode == Keyboard.RIGHT && isNavbar == false ){
+            appmodel.gotoNextSlide();
         }
     }
 
@@ -71,13 +76,13 @@ public class Application extends Sprite{
         slideLoader = new SlideLoader();
         addChild(slideLoader);
 
-        //navbar = new Navbar();
-        //navbar.y = stage.stageHeight;
-        //addChild(navbar);
+        navbar = new Navbar();
+        navbar.y = stage.stageHeight;
+        addChild(navbar);
 
         appmodel.currentSlide = 0;
 
-        //stage.addEventListener(KeyboardEvent.KEY_DOWN, navBarOptions)
+        stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions)
     }
 }
 }
