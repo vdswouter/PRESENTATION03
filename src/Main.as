@@ -69,6 +69,8 @@ public class Main extends MovieClip {
         var appClass:Class = getDefinitionByName("be.devine.cp3.Application") as Class;
         app = new appClass();
         addChild(app);
+
+        trace('startApp');
     }
     }
 
