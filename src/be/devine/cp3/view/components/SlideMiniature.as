@@ -10,7 +10,9 @@ import flash.events.MouseEvent;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
-public class SlideMiniature extends Sprite{
+import starling.display.Sprite;
+
+public class SlideMiniature extends flash.display.Sprite{
 
     /**** VARIABELEN ****/
 

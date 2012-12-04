@@ -40,15 +40,15 @@ public class AppModel extends EventDispatcher {
     }
 
     public function load(UrlToXML:String):void{
+
         var xmlLoader:URLLoader = new URLLoader();
         xmlLoader.addEventListener( Event.COMPLETE, ParseXML );
         xmlLoader.load( new URLRequest(UrlToXML) );
     }
 
     private function ParseXML( e:Event ):void {
-
+        //TODO: omzeten naar factory
         var loadedXML:XML = new XML( e.currentTarget.data);
-
         settings = new SettingsVO();
 
         settings.backgroundType = String(loadedXML.project.theme.background.@style);
@@ -90,7 +90,7 @@ public class AppModel extends EventDispatcher {
             slides.push(slidevo);
 
         }
-        dispatchEvent(new Event(AppModel.XML_LOADED));
+        dispatchEvent(new Event(AppModel.XML_LOADED,true));
     }
 
 

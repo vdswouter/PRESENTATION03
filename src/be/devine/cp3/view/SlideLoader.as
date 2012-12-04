@@ -6,7 +6,9 @@ import be.devine.cp3.view.components.SlideBackground;
 import flash.display.Sprite;
 import flash.events.Event;
 
-public class SlideLoader extends Sprite {
+import starling.display.Sprite;
+
+public class SlideLoader extends flash.display.Sprite {
 
     // Properties
     private var appmodel:AppModel;

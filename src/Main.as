@@ -1,5 +1,6 @@
 package {
 
+import be.devine.cp3.Application;
 import be.devine.cp3.utils.OverloopFonts;
 
 import flash.display.DisplayObject;
@@ -15,12 +16,13 @@ import flash.events.ProgressEvent;
 
 import flash.utils.getDefinitionByName;
 
+import starling.core.Starling;
+
 public class Main extends MovieClip {
 
 
     private var app:DisplayObject;
-    private var preloader:Sprite = new Sprite();
-
+    private var starling:Starling;
 
     public function Main() {
         stage.align = StageAlign.TOP_LEFT;
@@ -38,38 +40,14 @@ public class Main extends MovieClip {
         new FontContainer();
         OverloopFonts.overloopGeembeddeFontsInSWF();
 
-        addChild(preloader);
-        preloader.x = stage.stageWidth/2;
-        preloader.y = stage.stageHeight/2;
-
-        if (loaderInfo.bytesLoaded >= loaderInfo.bytesTotal) {
-            startApplication();
-        } else {
-            loaderInfo.addEventListener(ProgressEvent.PROGRESS, progressHandler);
-            loaderInfo.addEventListener(Event.COMPLETE, completeHandler);
-        }
-    }
-
-    private function progressHandler(event:ProgressEvent):void {
-        trace(event.bytesLoaded, event.bytesTotal);
-        preloader.graphics.clear();
-        preloader.graphics.beginFill(0xAAAAAA);
-        preloader.graphics.drawRect(0,0,(event.bytesLoaded/event.bytesTotal)*100,10);
-        preloader.graphics.endFill();
-        preloader.rotation = (event.bytesLoaded/event.bytesTotal)*360;
-    }
-
-    private function completeHandler(event:Event):void {
 
         startApplication();
+
     }
 
     private function startApplication() {
-        trace("start de app");
-        gotoAndStop("start");
-        var appClass:Class = getDefinitionByName("be.devine.cp3.Application") as Class;
-        app = new appClass();
-        addChild(app);
+        starling = new Starling(Application,stage);
+        starling.start();
 
     }
     }

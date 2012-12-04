@@ -7,14 +7,20 @@ import be.devine.cp3.view.components.Slide;
 import com.greensock.TweenLite;
 import com.greensock.easing.Sine;
 
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.net.URLLoader;
-import flash.net.URLRequest;
 import flash.ui.Keyboard;
 
-public class Application extends Sprite{
+import starling.core.Starling;
+
+import starling.core.Starling;
+
+
+import starling.core.Starling;
+
+import starling.display.Sprite;
+import starling.events.Event;
+import starling.events.KeyboardEvent;
+
+public class Application extends starling.display.Sprite{
 
     /**** VARIABELEN ****/
     private var appmodel:AppModel;
@@ -28,18 +34,13 @@ public class Application extends Sprite{
 
         appmodel = AppModel.getInstance();
 
-        /*var slide:Slide = new Slide('title+list');
-        slide.txtTitle = 'DIT IS EEN TITEL';
-        slide.lists = ['dit is list 1', 'dit is list 2', 'dit is list 3', 'dit is list 4'];
-        //slide.imagePath = 'assets/images/1.jpg';
-        addChild(slide);*/
-
-        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        appmodel.load("assets/xml/template.xml");
+        appmodel.addEventListener(AppModel.XML_LOADED, onXmlIsIngeladen)
+        onXmlIsIngeladen(null)
     }
 
     private function addedToStageHandler(e:Event):void {
-        appmodel.load("assets/xml/template.xml");
-        appmodel.addEventListener(AppModel.XML_LOADED, onXmlIsIngeladen)
+
     }
 
     private function navBarOptions(e:KeyboardEvent):void {
@@ -52,31 +53,31 @@ public class Application extends Sprite{
 
             isNavbar = !isNavbar;
         }
-        else if( e.keyCode == Keyboard.LEFT && isNavbar == true ){
-            appmodel.navBarPreviousSlide();
-        }
-        else if( e.keyCode == Keyboard.RIGHT && isNavbar == true ){
-            appmodel.navBarNextSlide();
-        }else if( e.keyCode == Keyboard.LEFT && isNavbar == false ){
-            appmodel.gotoPreviousSlide();
-        }
-        else if( e.keyCode == Keyboard.RIGHT && isNavbar == false ){
-            appmodel.gotoNextSlide();
-        }
+//        else if( e.keyCode == Keyboard.LEFT && isNavbar == true ){
+//            appmodel.navBarPreviousSlide();
+//        }
+//        else if( e.keyCode == Keyboard.RIGHT && isNavbar == true ){
+//            appmodel.navBarNextSlide();
+//        }else if( e.keyCode == Keyboard.LEFT && isNavbar == false ){
+//            appmodel.gotoPreviousSlide();
+//        }
+//        else if( e.keyCode == Keyboard.RIGHT && isNavbar == false ){
+//            appmodel.gotoNextSlide();
+//        }
     }
 
     /**** METHODS ****/
     private function onXmlIsIngeladen(e:Event):void {
-        slideLoader = new SlideLoader();
-        addChild(slideLoader);
+//        slideLoader = new SlideLoader();
+//        addChild(slideLoader);
 
         navbar = new Navbar();
-        navbar.y = stage.stageHeight;
+        navbar.y = Starling.current.stage.stageHeight;
         addChild(navbar);
 
-        appmodel.currentSlide = 0;
+//        appmodel.currentSlide = 0;
 
-        stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions);
+        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions);
     }
 }
 }
