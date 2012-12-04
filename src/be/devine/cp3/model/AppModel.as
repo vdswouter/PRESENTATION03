@@ -1,12 +1,14 @@
 package be.devine.cp3.model {
 import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.VO.SlideVO;
+import be.devine.cp3.model.AppModel;
 
-import flash.display.Sprite;
 import flash.events.Event;
-import flash.events.EventDispatcher;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
+
+import starling.events.Event;
+import starling.events.EventDispatcher;
 
 public class AppModel extends EventDispatcher {
 
@@ -42,13 +44,14 @@ public class AppModel extends EventDispatcher {
     public function load(UrlToXML:String):void{
 
         var xmlLoader:URLLoader = new URLLoader();
-        xmlLoader.addEventListener( Event.COMPLETE, ParseXML );
+        xmlLoader.addEventListener( flash.events.Event.COMPLETE, ParseXML );
         xmlLoader.load( new URLRequest(UrlToXML) );
     }
 
-    private function ParseXML( e:Event ):void {
+    private function ParseXML( e:flash.events.Event ):void {
         //TODO: omzeten naar factory
         var loadedXML:XML = new XML( e.currentTarget.data);
+
         settings = new SettingsVO();
 
         settings.backgroundType = String(loadedXML.project.theme.background.@style);
@@ -90,7 +93,7 @@ public class AppModel extends EventDispatcher {
             slides.push(slidevo);
 
         }
-        dispatchEvent(new Event(AppModel.XML_LOADED,true));
+        dispatchEvent(new starling.events.Event(AppModel.XML_LOADED,true));
     }
 
 
@@ -98,12 +101,12 @@ public class AppModel extends EventDispatcher {
 
     public function navBarPreviousSlide():void {
 
-        dispatchEvent( new Event(NAVBAR_PREVIOUS_SLIDE) )
+        dispatchEvent( new starling.events.Event(NAVBAR_PREVIOUS_SLIDE) )
     }
 
     public function navBarNextSlide():void {
 
-        dispatchEvent( new Event(NAVBAR_NEXT_SLIDE) )
+        dispatchEvent( new starling.events.Event(NAVBAR_NEXT_SLIDE) )
     }
 
     public function get currentSlide():int {
@@ -114,7 +117,7 @@ public class AppModel extends EventDispatcher {
         if( _currentSlide != value ){
 
             _currentSlide = value;
-            dispatchEvent( new Event(CURRENT_SLIDE_CHANGED) );
+            dispatchEvent( new starling.events.Event(AppModel.CURRENT_SLIDE_CHANGED, true) );
             trace('[Appmodel] currentSlide changed');
         }
     }

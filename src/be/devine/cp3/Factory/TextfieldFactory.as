@@ -1,30 +1,40 @@
 package be.devine.cp3.factory
 {
-import flash.display.DisplayObjectContainer;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormat;
+
+
+import com.greensock.layout.AlignMode;
+
+import starling.text.TextField;
+import starling.utils.Color;
+import starling.utils.HAlign;
+import starling.utils.VAlign;
 
 public class TextfieldFactory
 	{
-		public static function create(format:TextFormat,
-									  parent:DisplayObjectContainer = null,
-									  x:Number = 0, y:Number = 0,
-									  text:String = ""):TextField
-		{
-			var textField:TextField = new TextField();
-			textField.defaultTextFormat = format;
-			textField.autoSize = TextFieldAutoSize.LEFT;
-			textField.multiline = false;
-			textField.selectable = false;
-			//textField.embedFonts = true;
-			textField.text = text;
-			textField.x = x;
-			textField.y = y;
-			if(parent != null)
-				parent.addChild(textField);
+        [Embed(source="/assets/fonts/Liberator.ttf", embedAsCFF="false", fontFamily="liberator")]
+        private static const LiberatorFont:Class;
+        [Embed(source="/assets/fonts/QuaverSans.otf", embedAsCFF="false", fontFamily="quaver")]
+        private static const QuaverFont:Class;
 
-			return textField;
-		}
+
+        public static function create(width:int,
+                                      height:int,
+                                      text:String,
+                                      autoscale:Boolean = false,
+                                      color:Number = 0xffffff,
+                                      fontname:String = "Verdana",
+                                      fontsize:int = 12,
+                                      align:String = HAlign.LEFT
+                                            ):TextField{
+
+            var textfield:TextField = new TextField(width, height, text);
+            textfield.autoScale = autoscale;
+            textfield.color = color;
+            textfield.fontName = fontname;
+            textfield.fontSize = fontsize;
+            textfield.hAlign = align;
+            textfield.vAlign = VAlign.TOP;
+            return textfield;
+        }
 	}
 }

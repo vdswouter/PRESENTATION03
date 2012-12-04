@@ -3,12 +3,10 @@ import be.devine.cp3.model.AppModel;
 import be.devine.cp3.view.components.Slide;
 import be.devine.cp3.view.components.SlideBackground;
 
-import flash.display.Sprite;
-import flash.events.Event;
-
 import starling.display.Sprite;
+import starling.events.Event;
 
-public class SlideLoader extends flash.display.Sprite {
+public class SlideLoader extends Sprite {
 
     // Properties
     private var appmodel:AppModel;

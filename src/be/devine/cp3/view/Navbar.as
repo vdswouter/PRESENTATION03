@@ -1,28 +1,18 @@
 package be.devine.cp3.view {
 
 import be.devine.cp3.VO.SlideVO;
-import be.devine.cp3.factory.GradientFactory;
 import be.devine.cp3.model.AppModel;
 import be.devine.cp3.view.components.SlideMiniature;
 
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-
-import flash.display.Loader;
-
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.net.URLRequest;
-
 import starling.display.Button;
-
 import starling.display.Quad;
-
 import starling.display.Sprite;
+import starling.events.Event;
+import starling.events.TouchEvent;
+import starling.extensions.pixelmask.PixelMaskDisplayObject;
 import starling.textures.Texture;
 
-public class Navbar extends starling.display.Sprite {
+public class Navbar extends Sprite {
 
     // Properties
     [Embed(source="/assets/UI_IMG/navbar_btnLeft.png")]
@@ -35,7 +25,8 @@ public class Navbar extends starling.display.Sprite {
     private var bg:Quad;
     private var miniature:SlideMiniature;
     private var slidesCon:Sprite;
-    private var mk:Sprite
+    private var mk:Quad
+    private var maskedSlidesCon:PixelMaskDisplayObject;
 
     var spacing:uint;
 
@@ -65,6 +56,7 @@ public class Navbar extends starling.display.Sprite {
         bg.setVertexColor(2, colors[1]);
         bg.setVertexColor(3, colors[1]);
         bg.x = 20;
+        addChild(bg);
 
         colors = [0x9d9887, 0xb1ac99];
 //
@@ -74,63 +66,72 @@ public class Navbar extends starling.display.Sprite {
         addChild(btnLeft);
 
 
-        var btnLeftTexture:Texture = Texture.fromBitmap(new BTNRIGHT);
-        var btnRight:Button = new Button(btnLeftTexture);
+        var btnRightTexture:Texture = Texture.fromBitmap(new BTNRIGHT);
+        var btnRight:Button = new Button(btnRightTexture);
         addChild(btnRight);
         btnRight.x = 1004;
 
 
-//        btnLeft.addEventListener(MouseEvent.CLICK, goToPreviousSlide);
-//        btnRight.addEventListener(MouseEvent.CLICK, goToNextSlide);
+        btnLeft.addEventListener(Event.TRIGGERED, goToPreviousSlide);
+        btnRight.addEventListener(Event.TRIGGERED, goToNextSlide);
 
         var xPos:uint = 0;
         spacing = 10;
-//
-//        for each(var slidevo:SlideVO in appmodel.slides){
-//            miniature = new SlideMiniature(slidevo, appmodel.settings);
-//            miniature.x = xPos;
-//            miniature.y = 0;
-//            miniature.addEventListener(MouseEvent.CLICK, setSlide);
-//            //miniature.buttonMode = true;
-//            miniature.mouseChildren = true;
-//            slidesCon.addChild(miniature);
-//
-//
-//            xPos += miniature.width + spacing;
-//        }
-//
-//
-//        slidesCon.x = bg.x + 10;
-//        slidesCon.y = bg.y + 10;
+
+        for each(var slidevo:SlideVO in appmodel.slides){
+            //TODO: eventueel omzetten naar button Maar hoe gaan we dan de clickedslide-id opvragen????
+            miniature = new SlideMiniature(slidevo, appmodel.settings);
+            miniature.x = xPos;
+            miniature.y = 0;
+            miniature.addEventListener(SlideMiniature.CLICKED, setSlide);
+            slidesCon.addChild(miniature);
+
+
+            xPos += miniature.width + spacing;
+        }
+
+
+        slidesCon.x = bg.x + 10;
+        slidesCon.y = bg.y + 10;
 //        addChild(slidesCon);
-//
-//        mk = new Sprite();
-//        mk.graphics.beginFill(0xffffff);
-//        mk.graphics.drawRect(bg.x, bg.y, bg.width, bg.height);
-//        mk.graphics.endFill();
-//        addChild(mk);
-//        slidesCon.mask = mk;
-//
-//        appmodel.addEventListener(AppModel.NAVBAR_PREVIOUS_SLIDE, goToPreviousSlide);
-//        appmodel.addEventListener(AppModel.NAVBAR_NEXT_SLIDE, goToNextSlide);
+
+        mk = new Quad(bg.width - 25, bg.height, 0xffffff);
+        mk.x = 25;
+        drawMask();
+
+        appmodel.addEventListener(AppModel.NAVBAR_PREVIOUS_SLIDE, goToPreviousSlide);
+        appmodel.addEventListener(AppModel.NAVBAR_NEXT_SLIDE, goToNextSlide);
+    }
+
+    private function setSlide(e:Event):void {
+
+        var clickedSlideVO:SlideMiniature = e.currentTarget as SlideMiniature;
+        appmodel.currentSlide = clickedSlideVO.slidevo.slideNumber -1;
+    }
+
+    private function drawMask():void{
+        if(maskedSlidesCon != null && maskedSlidesCon.parent != null){
+            removeChild(maskedSlidesCon);
+        }
+        maskedSlidesCon = new PixelMaskDisplayObject();
+        maskedSlidesCon.addChild(slidesCon);
+
+        maskedSlidesCon.mask = mk;
+        addChild(maskedSlidesCon);
     }
 //
-//    private function setSlide(e:MouseEvent):void {
-//
-//        var clickedSlideVO:SlideMiniature = e.currentTarget as SlideMiniature;
-//        appmodel.currentSlide = clickedSlideVO.slidevo.slideNumber -1;
-//    }
-//
-//    private function goToPreviousSlide(e:Event):void {
-//
-//        if( slidesCon.x < bg.x + 10)
-//            slidesCon.x += 10 + miniature.width;
-//    }
-//
-//    private function goToNextSlide(e:Event):void {
-//
-//        if( slidesCon.x > -((slidesCon.width - bg.width) - miniature.width) )
-//            slidesCon.x -= 10 + miniature.width;
-//    }
+    private function goToPreviousSlide(e:Event):void {
+
+        if( slidesCon.x < bg.x + 10){
+            slidesCon.x += 10 + miniature.width;
+        }
+    }
+
+    private function goToNextSlide(e:Event):void {
+
+        if( slidesCon.x > -((slidesCon.width - bg.width) - miniature.width) ){
+            slidesCon.x -= 10 + miniature.width;
+        }
+    }
 }
 }

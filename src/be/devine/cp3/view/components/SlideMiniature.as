@@ -5,18 +5,23 @@ import be.devine.cp3.factory.TextfieldFactory;
 
 import com.greensock.TweenLite;
 
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import flash.text.TextField;
-import flash.text.TextFormat;
+import starling.core.Starling;
+
 
 import starling.display.Sprite;
+import starling.events.Event;
+import starling.events.TouchEvent;
+import starling.events.TouchPhase;
+import starling.text.TextField;
 
-public class SlideMiniature extends flash.display.Sprite{
+public class SlideMiniature extends Sprite{
 
     /**** VARIABELEN ****/
 
+    public static const CLICKED:String = "Miniature Clicked";
+
     public var slidevo:SlideVO;
+
     private var settings:SettingsVO;
     public var index:TextField;
 
@@ -34,30 +39,46 @@ public class SlideMiniature extends flash.display.Sprite{
         slide = new Slide(slidevo, settings);
         addChild(slide);
 
-        index = TextfieldFactory.create(new TextFormat("Liberator", 1000, 0XFFFFFF),this,0,0,String(slidevo.slideNumber));
+        index = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, String(slidevo.slideNumber), false, 0xcccccc, "liberator", 1000);
         index.alpha = 0;
         addChild(index);
 
-        this.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
-        this.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+        this.addEventListener(TouchEvent.TOUCH, onTouch);
 
-        this.scaleX = this.scaleY = (98/1024);
+        this.scaleX = this.scaleY = (98/Starling.current.stage.stageWidth);
     }
 
-    private function mouseOverHandler(event:MouseEvent):void {
-        this.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-        this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
-
-        TweenLite.to(index, 0.5,{alpha:1});
+    private function onTouch(te:TouchEvent):void
+    {
+        if (te.getTouch(this, TouchPhase.HOVER))
+        {
+            TweenLite.to(index, 0.5,{alpha:1});
+        }
+        else
+        {
+            TweenLite.to(index, 0.5,{alpha:0});
+        }
+        if (te.getTouch(this, TouchPhase.ENDED))
+        {
+            this.dispatchEvent(new Event(CLICKED));
+        }
 
     }
 
-    private function mouseOutHandler(event:MouseEvent):void {
-        this.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
-        this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-        TweenLite.to(index, 0.5,{alpha:0});
-
-    }
+//    private function mouseOverHandler(event:MouseEvent):void {
+//        this.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+//        this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
+//
+//        TweenLite.to(index, 0.5,{alpha:1});
+//
+//    }
+//
+//    private function mouseOutHandler(event:MouseEvent):void {
+//        this.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
+//        this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+//        TweenLite.to(index, 0.5,{alpha:0});
+//
+//    }
 
     /**** METHODS ****/
 }

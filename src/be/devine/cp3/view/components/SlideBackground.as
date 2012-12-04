@@ -1,11 +1,11 @@
 package be.devine.cp3.view.components {
-import be.devine.cp3.factory.GradientFactory;
-import be.devine.cp3.factory.TextfieldFactory;
 import be.devine.cp3.VO.SettingsVO;
+import be.devine.cp3.factory.TextfieldFactory;
 
-import flash.display.Sprite;
-import flash.text.TextField;
-import flash.text.TextFormat;
+import starling.core.Starling;
+import starling.display.Quad;
+import starling.display.Sprite;
+import starling.text.TextField;
 
 public class SlideBackground extends Sprite{
 
@@ -18,43 +18,31 @@ public class SlideBackground extends Sprite{
     public function SlideBackground(settingsvo:SettingsVO) {
         this.settingsvo = settingsvo;
 
-
-
         generateBackground();
         generateInfo();
     }
 
     private function generateInfo():void {
         var infotext:TextField;
-        var tf:TextFormat = new TextFormat('Quaver Sans',15,0x333333);
-        infotext = TextfieldFactory.create(tf, null,0,0,settingsvo.createdDate+"  "+settingsvo.userName);
+        infotext = TextfieldFactory.create(250, 50, settingsvo.userName + "  -  "+settingsvo.createdDate, true, settingsvo.listColor, settingsvo.listFont, 20);
         addChild(infotext);
-        infotext.x = (1024 - 140);
-        infotext.y = (768 - 50);
-        trace("[infotext width] "+ infotext.width);
+        infotext.x = (Starling.current.stage.stageWidth - 250);
+        infotext.y = (Starling.current.stage.stageHeight - 50);
     }
 
     private function generateBackground():void {
-        var background:Sprite;
 
-        switch (settingsvo.backgroundType){
-            case "linear":
-                    background = GradientFactory.createLinear('vertical',1024,768,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
-                break;
-            case "reflect":
-                    background = GradientFactory.createReflect('vertical',1024,768,[settingsvo.backgroundColor1,settingsvo.backgroundColor2],[1,1],[0,255],null);
-                break;
-            default:
-                background = new Sprite();
-                background.graphics.beginFill(settingsvo.backgroundColor1);
-                background.graphics.drawRect(0,0,1024,768);
-                background.graphics.endFill();
-                break;
-        }
+        var background:Quad;
+        background = new Quad(Starling.current.stage.stageWidth,Starling.current.stage.stageHeight);
+        background.setVertexColor(0,settingsvo.backgroundColor1);
+        background.setVertexColor(1,settingsvo.backgroundColor1);
+        background.setVertexColor(2,settingsvo.backgroundColor2);
+        background.setVertexColor(3,settingsvo.backgroundColor2);
+
+
         addChild(background);
         background.x = background.y = 0;
-        background.width = this.width;
-        background.height = this.height;
+
     }
 
     /**** METHODS ****/
