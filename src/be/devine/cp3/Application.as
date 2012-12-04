@@ -28,8 +28,6 @@ public class Application extends Sprite{
 
         appmodel = AppModel.getInstance();
 
-
-
         /*var slide:Slide = new Slide('title+list');
         slide.txtTitle = 'DIT IS EEN TITEL';
         slide.lists = ['dit is list 1', 'dit is list 2', 'dit is list 3', 'dit is list 4'];
@@ -37,16 +35,12 @@ public class Application extends Sprite{
         addChild(slide);*/
 
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-
     }
 
     private function addedToStageHandler(e:Event):void {
         appmodel.load("assets/xml/template.xml");
         appmodel.addEventListener(AppModel.XML_LOADED, onXmlIsIngeladen)
-
-
     }
-
 
     private function navBarOptions(e:KeyboardEvent):void {
 
@@ -82,7 +76,7 @@ public class Application extends Sprite{
 
         appmodel.currentSlide = 0;
 
-        stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions)
+        stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions);
     }
 }
 }
