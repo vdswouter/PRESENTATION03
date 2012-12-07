@@ -21,8 +21,6 @@ import starling.core.Starling;
 public class Main extends MovieClip {
 
 
-    private var app:DisplayObject;
-    private var starling:Starling;
 
     public function Main() {
         stage.align = StageAlign.TOP_LEFT;
@@ -41,15 +39,12 @@ public class Main extends MovieClip {
         OverloopFonts.overloopGeembeddeFontsInSWF();
 
 
-        startApplication();
-
-    }
-
-    private function startApplication() {
-        starling = new Starling(Application,stage);
+        var starling:Starling = new Starling(Application,stage);
         starling.start();
 
     }
+
+
     }
 
 
