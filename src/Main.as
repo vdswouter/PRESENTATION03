@@ -34,11 +34,6 @@ public class Main extends MovieClip {
         stage.nativeWindow.title = 'Presentation Engine';
         stage.frameRate = 60;
 
-
-        new FontContainer();
-        OverloopFonts.overloopGeembeddeFontsInSWF();
-
-
         var starling:Starling = new Starling(Application,stage);
         starling.start();
 

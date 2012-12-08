@@ -50,6 +50,9 @@ public class AppModel extends EventDispatcher {
 
     private function ParseXML( e:flash.events.Event ):void {
         //TODO: omzeten naar factory
+        //TODO: keuze tussen vertical/horizontal gradient
+
+
         var loadedXML:XML = new XML( e.currentTarget.data);
 
         settings = new SettingsVO();
@@ -76,6 +79,8 @@ public class AppModel extends EventDispatcher {
             slidevo = new SlideVO();
             slidevo.slideType = node.@type;
             slidevo.slideNumber = node.@page;
+            slidevo.transition = node.@transition;
+
             if(slidevo.slideType == "image" || slidevo.slideType == "image+list" ){
                 slidevo.img_path = node.img.img_path;
                 slidevo.img_scale = Number(node.img.scale);
@@ -83,7 +88,7 @@ public class AppModel extends EventDispatcher {
                 slidevo.img_ypos = uint(node.img.@ypos);
             }
             if(slidevo.slideType != "image"){
-                slidevo.Title = node.title;
+                slidevo.title = node.title;
             }
             if(slidevo.slideType == "title+list" || slidevo.slideType == "image+list" ){
                 for each(var li:XML in node.list.text){
@@ -95,9 +100,6 @@ public class AppModel extends EventDispatcher {
         }
         dispatchEvent(new starling.events.Event(AppModel.XML_LOADED,true));
     }
-
-
-
 
     public function navBarPreviousSlide():void {
 
@@ -118,7 +120,7 @@ public class AppModel extends EventDispatcher {
 
             _currentSlide = value;
             dispatchEvent( new starling.events.Event(AppModel.CURRENT_SLIDE_CHANGED, true) );
-            trace('[Appmodel] currentSlide changed');
+//            trace('[Appmodel] currentSlide changed');
         }
     }
 

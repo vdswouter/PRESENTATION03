@@ -22,7 +22,7 @@ public class Slide extends Sprite {
     // Properties
     private var slide:Sprite;
 
-    private var slidevo:SlideVO;
+    public var slidevo:SlideVO;
     private var settings:SettingsVO;
 
     private var title:TextField;
@@ -37,11 +37,9 @@ public class Slide extends Sprite {
         this.slidevo = slidevo;
         this.settings = settings;
 
-
-
         slide = new Sprite();
 
-        trace("[slide] "+slidevo.slideType);
+//        trace("[slide] "+slidevo.slideType);
         switch( slidevo.slideType ){
             case 'title':
                 createTitle();
@@ -56,16 +54,16 @@ public class Slide extends Sprite {
                 createImageList();
                 break;
             default:
-                trace("[SLIDE] Er is geen juist slidetype meegegeven");
+//                trace("[SLIDE] Er is geen juist slidetype meegegeven");
                 break;
         }
     }
 
     private function createTitle():void {
 
-        trace('[SLIDE] createTitle');
+//        trace('[SLIDE] createTitle');
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, slidevo.Title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
+        title = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
         title.x = Starling.current.stage.stageWidth / 2 - title.width / 2;
         title.y = Starling.current.stage.stageHeight / 2 - title.textBounds.height / 2;
         addChild(title);
@@ -73,9 +71,9 @@ public class Slide extends Sprite {
 
     private function createTitleList():void {
 
-        trace('[SLIDE] createTitleList');
+//        trace('[SLIDE] createTitleList');
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.Title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
+        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
         title.x = Starling.current.stage.stageWidth /2 - title.width /2;
         title.y = 80;
         addChild(title);
@@ -96,7 +94,7 @@ public class Slide extends Sprite {
     }
 
     private function createImage():void {
-        trace('[SLIDE] createImage');
+//        trace('[SLIDE] createImage');
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
@@ -104,6 +102,7 @@ public class Slide extends Sprite {
     }
 
     private function SingleFotoLoaded(event:Event):void {
+        //TODO: single foto maakt dat slide geen width of height heeft
 
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
@@ -120,19 +119,18 @@ public class Slide extends Sprite {
         foto.x = (Starling.current.stage.stageWidth - foto.width) /2;
         foto.y = (Starling.current.stage.stageHeight - foto.height) /2;
         addChild(foto);
-
     }
 
 
 
     private function createImageList() {
-        trace('[SLIDE] createImageList');
+//        trace('[SLIDE] createImageList');
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
         fotoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, ListFotoLoaded);
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.Title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
+        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
         title.x = Starling.current.stage.stageWidth /2 - title.width /2;
         title.y = 80;
         addChild(title);

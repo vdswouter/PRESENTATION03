@@ -24,12 +24,12 @@
     </project>
 
     <slides>
-        <slide page="1" type="image+list">
+        <slide page="1" type="image+list" transition="push down">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>
             </img>
-            <title>Dit is een titel</title>
+            <title>SLIDE 1</title>
             <list>
                 <text>Dit is het eerste</text>
                 <text>Dit is het tweede</text>
@@ -39,18 +39,95 @@
             </list>
         </slide>
 
-        <slide page="2" type="title">
-            <title>Dit is een titel</title>
+        <slide page="2" type="title" transition="push down">
+            <title>SLIDE 2</title>
         </slide>
 
-        <slide page="3" type="image">
+        <slide page="3" type="image" transition="push down">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>
             </img>
         </slide>
 
-        <slide page="4" type="title+list">
+        <slide page="4" type="title+list" transition="push down">
+            <title>SLIDE 4</title>
+            <list>
+                <text>Dit is het eerste</text>
+                <text>Dit is het tweede</text>
+                <text>Dit is het derde</text>
+                <text>Dit is het vierde</text>
+                <text>Dit is het vijfde</text>
+            </list>
+        </slide>
+
+        <slide page="5" type="title+list" transition="push down">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het qsdf</text>
+                <text>Dit is het tqsdfwweede</text>
+                <text>Dit is het dewxcvrde</text>
+                <text>Dit is het viwcverde</text>
+                <text>Dit is het viwxvjfde</text>
+            </list>
+        </slide>
+
+        <slide page="6" type="title+list" transition="push down">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het 45342</text>
+                <text>Dit is het 757</text>
+                <text>Dit is het der4242de</text>
+                <text>Dit is het vie7277rde</text>
+                <text>Dit is het 7578723</text>
+            </list>
+        </slide>
+
+        <slide page="7" type="title+list" transition="push right">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het iyokl</text>
+                <text>Dit is het azeqsd</text>
+                <text>Dit is het cbncv;</text>
+                <text>Dit is het azer</text>
+                <text>Dit is het iomhjk;</text>
+            </list>
+        </slide>
+
+        <slide page="8" type="title+list" transition="push right">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het qdsqd</text>
+                <text>Dit is het 7857838</text>
+                <text>Dit is het sdfsf</text>
+                <text>Dit is het 72421</text>
+                <text>Dit is het xcvbc</text>
+            </list>
+        </slide>
+
+        <slide page="9" type="title+list" transition="push right">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het 75312</text>
+                <text>Dit is het 78354</text>
+                <text>Dit is het 53735</text>
+                <text>Dit is het 727</text>
+                <text>Dit is het 7832</text>
+            </list>
+        </slide>
+
+        <slide page="10" type="title+list" transition="push right">
+            <title>Dit is een titel</title>
+            <list>
+                <text>Dit is het iolhj</text>
+                <text>Dit is het qsdqs</text>
+                <text>Dit is het dfgj</text>
+                <text>Dit is het itultiu</text>
+                <text>Dit is het zaetd</text>
+            </list>
+        </slide>
+
+        <slide page="11" type="title+list" transition="push right">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>
@@ -60,7 +137,8 @@
                 <text>Dit is het vijfde</text>
             </list>
         </slide>
-        <slide page="5" type="title+list">
+
+        <slide page="12" type="title+list" transition="push right">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>
@@ -70,7 +148,8 @@
                 <text>Dit is het vijfde</text>
             </list>
         </slide>
-        <slide page="6" type="title+list">
+
+        <slide page="13" type="title+list" transition="push right">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>
@@ -80,7 +159,8 @@
                 <text>Dit is het vijfde</text>
             </list>
         </slide>
-        <slide page="7" type="title+list">
+
+        <slide page="14" type="title+list" transition="push right">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>
@@ -90,7 +170,8 @@
                 <text>Dit is het vijfde</text>
             </list>
         </slide>
-        <slide page="8" type="title+list">
+
+        <slide page="15" type="title+list" transition="push right">
             <title>Dit is een titel</title>
             <list>
                 <text>Dit is het eerste</text>
@@ -100,77 +181,8 @@
                 <text>Dit is het vijfde</text>
             </list>
         </slide>
-        <slide page="9" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="10" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="11" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="12" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="13" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="14" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="15" type="title+list">
-            <title>Dit is een titel</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-        <slide page="16" type="image+list">
+
+        <slide page="16" type="image+list" transition="push right">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>

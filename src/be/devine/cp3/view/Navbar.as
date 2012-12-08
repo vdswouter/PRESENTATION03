@@ -25,14 +25,14 @@ public class Navbar extends Sprite {
     private var bg:Quad;
     private var miniature:SlideMiniature;
     private var slidesCon:Sprite;
-    private var mk:Quad
+    private var mk:Quad;
     private var maskedSlidesCon:PixelMaskDisplayObject;
 
-    var spacing:uint;
+    private var spacing:uint;
 
-    var colors:Array;
-    var alphas:Array;
-    var ratios:Array;
+    private var colors:Array;
+    private var alphas:Array;
+    private var ratios:Array;
 
 
     // Constructor
@@ -81,6 +81,8 @@ public class Navbar extends Sprite {
         for each(var slidevo:SlideVO in appmodel.slides){
             //TODO: eventueel omzetten naar button Maar hoe gaan we dan de clickedslide-id opvragen????
             miniature = new SlideMiniature(slidevo, appmodel.settings);
+            
+
             miniature.x = xPos;
             miniature.y = 0;
             miniature.addEventListener(SlideMiniature.CLICKED, setSlide);
