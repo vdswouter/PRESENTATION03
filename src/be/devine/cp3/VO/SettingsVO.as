@@ -7,7 +7,7 @@ public class SettingsVO {
     public var backgroundType:String;
     public var backgroundColor1:uint;
     public var backgroundColor2:uint;
-    public var gradientType:String = "linear";
+    public var gradientDirection:String;
     public var userName:String;
     public var createdDate:String;
     public var titleFontSize:uint;
@@ -16,12 +16,5 @@ public class SettingsVO {
     public var listFontSize:uint;
     public var listFont:String;
     public var listColor:uint;
-
-
-    /**** CONSTRUCTOR ****/
-    public function SettingsVO() {
-    }
-
-    /**** METHODS ****/
 }
 }

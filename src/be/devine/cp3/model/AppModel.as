@@ -1,6 +1,8 @@
 package be.devine.cp3.model {
 import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.VO.SlideVO;
+import be.devine.cp3.factory.vo.SettingsVOFactory;
+import be.devine.cp3.factory.vo.SlideVOFactory;
 import be.devine.cp3.model.AppModel;
 
 import flash.events.Event;
@@ -20,8 +22,8 @@ public class AppModel extends EventDispatcher {
 
     public static var instance:AppModel;
 
-    public var slides:Vector.<SlideVO> = new Vector.<SlideVO>();
-    public var settings:SettingsVO;
+    public var slides:Vector.<SlideVO>;
+    public var settingsvo:SettingsVO;
 
     private var _currentSlide:int = 1;
 
@@ -48,55 +50,19 @@ public class AppModel extends EventDispatcher {
         xmlLoader.load( new URLRequest(UrlToXML) );
     }
 
-    private function ParseXML( e:flash.events.Event ):void {
-        //TODO: omzeten naar factory
-        //TODO: keuze tussen vertical/horizontal gradient
-
+    private function ParseXML(e:flash.events.Event):void {
 
         var loadedXML:XML = new XML( e.currentTarget.data);
 
-        settings = new SettingsVO();
-
-        settings.backgroundType = String(loadedXML.project.theme.background.@style);
-        settings.backgroundColor1 = uint("0x"+loadedXML.project.theme.background.color[0].text());
-        if(settings.backgroundType == "solid"){
-            settings.backgroundColor2 = settings.backgroundColor1;
-        }else{
-            settings.backgroundColor2 = uint("0x"+loadedXML.project.theme.background.color[1].text());
-            settings.gradientType = String(loadedXML.project.theme.background.@type);
-        }
-        settings.userName = loadedXML.project.user.name;
-        settings.createdDate = loadedXML.project.user.created;
-        settings.titleColor = uint("0x"+loadedXML.project.title.color);
-        settings.titleFont = loadedXML.project.title.font;
-        settings.titleFontSize = uint(loadedXML.project.title.size);
-        settings.listColor = uint("0x"+loadedXML.project.list.color);
-        settings.listFont = loadedXML.project.list.font;
-        settings.listFontSize = uint(loadedXML.project.list.size);
+        settingsvo = new SettingsVO();
+        settingsvo = SettingsVOFactory.createSettingsFromXML(loadedXML);
 
         var slidevo:SlideVO;
-        for each(var node:XML in loadedXML.slides.slide){
+        slides = new Vector.<SlideVO>();
+        for each(var slide:XML in loadedXML.slides.slide){
             slidevo = new SlideVO();
-            slidevo.slideType = node.@type;
-            slidevo.slideNumber = node.@page;
-            slidevo.transition = node.@transition;
-
-            if(slidevo.slideType == "image" || slidevo.slideType == "image+list" ){
-                slidevo.img_path = node.img.img_path;
-                slidevo.img_scale = Number(node.img.scale);
-                slidevo.img_xpos = uint(node.img.@xpos);
-                slidevo.img_ypos = uint(node.img.@ypos);
-            }
-            if(slidevo.slideType != "image"){
-                slidevo.title = node.title;
-            }
-            if(slidevo.slideType == "title+list" || slidevo.slideType == "image+list" ){
-                for each(var li:XML in node.list.text){
-                    slidevo.list.push(li.text().toString());
-                }
-            }
+            slidevo = SlideVOFactory.createSlideVOFromXML(slide);
             slides.push(slidevo);
-
         }
         dispatchEvent(new starling.events.Event(AppModel.XML_LOADED,true));
     }

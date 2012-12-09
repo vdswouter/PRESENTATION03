@@ -28,12 +28,6 @@ public class Navbar extends Sprite {
     private var mk:Quad;
     private var maskedSlidesCon:PixelMaskDisplayObject;
 
-    private var spacing:uint;
-
-    private var colors:Array;
-    private var alphas:Array;
-    private var ratios:Array;
-
 
     // Constructor
     public function Navbar() {
@@ -45,11 +39,8 @@ public class Navbar extends Sprite {
     private function layout():void {
 
         slidesCon = new Sprite();
-        alphas = [1, 1];
-        ratios = [0, 255];
+        var colors:Array = [0xc9c4b0, 0xd3ceba];
 
-        colors = [0xc9c4b0, 0xd3ceba];
-        //bg = GradientFactory.createReflect('vertical', 984, 100, colors, alphas, ratios, this);
         bg = new Quad(984,100);
         bg.setVertexColor(0, colors[0]);
         bg.setVertexColor(1, colors[0]);
@@ -57,9 +48,6 @@ public class Navbar extends Sprite {
         bg.setVertexColor(3, colors[1]);
         bg.x = 20;
         addChild(bg);
-
-        colors = [0x9d9887, 0xb1ac99];
-//
 
         var btnLeftTexture:Texture = Texture.fromBitmap(new BTNLEFT);
         var btnLeft:Button = new Button(btnLeftTexture);
@@ -76,22 +64,19 @@ public class Navbar extends Sprite {
         btnRight.addEventListener(Event.TRIGGERED, goToNextSlide);
 
         var xPos:uint = 0;
-        spacing = 10;
+        var spacing:uint = 10;
 
         for each(var slidevo:SlideVO in appmodel.slides){
             //TODO: eventueel omzetten naar button Maar hoe gaan we dan de clickedslide-id opvragen????
-            miniature = new SlideMiniature(slidevo, appmodel.settings);
-            
+            miniature = new SlideMiniature(slidevo, appmodel.settingsvo);
 
             miniature.x = xPos;
             miniature.y = 0;
             miniature.addEventListener(SlideMiniature.CLICKED, setSlide);
             slidesCon.addChild(miniature);
 
-
             xPos += miniature.width + spacing;
         }
-
 
         slidesCon.x = bg.x + 10;
         slidesCon.y = bg.y + 10;

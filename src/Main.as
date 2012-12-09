@@ -21,7 +21,6 @@ import starling.core.Starling;
 public class Main extends MovieClip {
 
 
-
     public function Main() {
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -36,12 +35,6 @@ public class Main extends MovieClip {
 
         var starling:Starling = new Starling(Application,stage);
         starling.start();
-
     }
-
-
-    }
-
-
-
+}
 }

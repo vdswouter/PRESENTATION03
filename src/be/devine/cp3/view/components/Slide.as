@@ -20,8 +20,6 @@ import starling.utils.HAlign;
 public class Slide extends Sprite {
 
     // Properties
-    private var slide:Sprite;
-
     public var slidevo:SlideVO;
     private var settings:SettingsVO;
 
@@ -37,7 +35,6 @@ public class Slide extends Sprite {
         this.slidevo = slidevo;
         this.settings = settings;
 
-        slide = new Sprite();
 
 //        trace("[slide] "+slidevo.slideType);
         switch( slidevo.slideType ){
@@ -123,7 +120,7 @@ public class Slide extends Sprite {
 
 
 
-    private function createImageList() {
+    private function createImageList():void {
 //        trace('[SLIDE] createImageList');
 
         fotoLoader = new Loader();

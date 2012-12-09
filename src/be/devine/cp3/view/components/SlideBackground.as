@@ -18,13 +18,13 @@ public class SlideBackground extends Sprite{
     public function SlideBackground(settingsvo:SettingsVO) {
         this.settingsvo = settingsvo;
 
-        generateBackground();
         generateInfo();
+        generateBackground();
     }
 
     private function generateInfo():void {
         var infotext:TextField;
-        infotext = TextfieldFactory.create(250, 50, settingsvo.userName + "  -  "+settingsvo.createdDate, true, settingsvo.listColor, settingsvo.listFont, 20);
+        infotext = TextfieldFactory.create(250, 50, settingsvo.userName +"  -  "+settingsvo.createdDate, true, settingsvo.listColor, settingsvo.listFont, 20);
         addChild(infotext);
         infotext.x = (Starling.current.stage.stageWidth - 250);
         infotext.y = (Starling.current.stage.stageHeight - 50);
@@ -33,18 +33,40 @@ public class SlideBackground extends Sprite{
     private function generateBackground():void {
 
         var background:Quad;
-        background = new Quad(Starling.current.stage.stageWidth,Starling.current.stage.stageHeight);
-        background.setVertexColor(0,settingsvo.backgroundColor1);
-        background.setVertexColor(1,settingsvo.backgroundColor1);
-        background.setVertexColor(2,settingsvo.backgroundColor2);
-        background.setVertexColor(3,settingsvo.backgroundColor2);
+        background = new Quad(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight);
+
+        if( settingsvo.backgroundType == 'solid' ){
+            background.setVertexColor(0,settingsvo.backgroundColor1);
+            background.setVertexColor(1,settingsvo.backgroundColor1);
+            background.setVertexColor(2,settingsvo.backgroundColor1);
+            background.setVertexColor(3,settingsvo.backgroundColor1);
+        } else {
+            if( settingsvo.gradientDirection == 'horizontal'){
+                background.setVertexColor(0,settingsvo.backgroundColor1);
+                background.setVertexColor(1,settingsvo.backgroundColor2);
+                background.setVertexColor(2,settingsvo.backgroundColor1);
+                background.setVertexColor(3,settingsvo.backgroundColor2);
+            }
+            else if( settingsvo.gradientDirection == 'vertical'){
+                background.setVertexColor(0,settingsvo.backgroundColor1);
+                background.setVertexColor(1,settingsvo.backgroundColor1);
+                background.setVertexColor(2,settingsvo.backgroundColor2);
+                background.setVertexColor(3,settingsvo.backgroundColor2);
+            }
+        }
+
+
+
+
+
+
+
+
 
 
         addChild(background);
         background.x = background.y = 0;
 
     }
-
-    /**** METHODS ****/
 }
 }

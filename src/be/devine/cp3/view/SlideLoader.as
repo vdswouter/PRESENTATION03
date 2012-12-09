@@ -18,7 +18,6 @@ public class SlideLoader extends Sprite {
 
     private var slide:Slide;
     private var currentSlide:Slide;
-    private var slideBackground:SlideBackground;
 
 
     private var isFirstRun:Boolean= true;
@@ -28,7 +27,8 @@ public class SlideLoader extends Sprite {
 
         this.appmodel = AppModel.getInstance();
 
-        slideBackground = new SlideBackground(appmodel.settings);
+        // TODO waarschijnlijk beter zonder parameter
+        var slideBackground:SlideBackground= new SlideBackground(appmodel.settingsvo);
         addChild(slideBackground);
 
         appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
@@ -40,7 +40,7 @@ public class SlideLoader extends Sprite {
 
         if(!isFirstRun) currentSlide = slide;
 
-        slide = new Slide(appmodel.slides[appmodel.currentSlide], appmodel.settings);
+        slide = new Slide(appmodel.slides[appmodel.currentSlide], appmodel.settingsvo);
         slide.x = slide.y = 0;
 
         if(isFirstRun){
@@ -60,6 +60,7 @@ public class SlideLoader extends Sprite {
         var transitionCurrSlide:Tween = new Tween(currentSlide, 1, Transitions.EASE_OUT);
         var transitionSlide:Tween = new Tween(slide, 1, Transitions.EASE_OUT);
 
+        // TODO bij het gaan van de 1ste naar de laatste slide zou er geen animatie mogen zijn
         var transitionType:String;
         if(currentSlide.slidevo.slideNumber < slide.slidevo.slideNumber)
             transitionType = currentSlide.slidevo.transition;
