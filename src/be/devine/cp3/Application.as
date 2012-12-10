@@ -3,12 +3,11 @@ import be.devine.cp3.model.AppModel;
 import be.devine.cp3.view.Navbar;
 import be.devine.cp3.view.SlideLoader;
 
-import com.greensock.TweenLite;
-import com.greensock.easing.Sine;
-
 import flash.ui.Keyboard;
 
-import starling.core.Starling;
+import starling.animation.Transitions;
+
+import starling.animation.Tween;
 
 import starling.core.Starling;
 import starling.display.Sprite;
@@ -20,7 +19,6 @@ public class Application extends Sprite{
     /**** VARIABELEN ****/
     private var appmodel:AppModel;
     private var navbar:Navbar;
-    private var slideLoader:SlideLoader;
 
     private var isNavbar:Boolean = false;
 
@@ -30,40 +28,14 @@ public class Application extends Sprite{
         appmodel = AppModel.getInstance();
 
         appmodel.load("/assets/xml/template.xml");
-        appmodel.addEventListener(AppModel.XML_LOADED, onXmlIsIngeladen)
-        //onXmlIsIngeladen(null)
+        appmodel.addEventListener(AppModel.XML_LOADED, onXMLIsLoaded);
+
+        // TODO resize handler + fullscreen modus
     }
 
-    private function addedToStageHandler(e:Event):void {
+    private function onXMLIsLoaded(e:Event):void {
 
-    }
-
-    private function navBarOptions(e:KeyboardEvent):void {
-
-        if (e.keyCode == Keyboard.SPACE) {
-            if (isNavbar)
-                TweenLite.to(navbar, 0.5, {y:Starling.current.stage.stageHeight, ease:Sine.easeOut});
-            else
-                TweenLite.to(navbar, 0.5, {y:Starling.current.stage.stageHeight - navbar.height, ease:Sine.easeOut});
-
-            isNavbar = !isNavbar;
-        }
-        else if( e.keyCode == Keyboard.LEFT && isNavbar == true ){
-            appmodel.navBarPreviousSlide();
-        }
-        else if( e.keyCode == Keyboard.RIGHT && isNavbar == true ){
-            appmodel.navBarNextSlide();
-        }else if( e.keyCode == Keyboard.LEFT && isNavbar == false ){
-            appmodel.gotoPreviousSlide();
-        }
-        else if( e.keyCode == Keyboard.RIGHT && isNavbar == false ){
-            appmodel.gotoNextSlide();
-        }
-    }
-
-    /**** METHODS ****/
-    private function onXmlIsIngeladen(e:Event):void {
-        slideLoader = new SlideLoader();
+        var slideLoader:SlideLoader = new SlideLoader();
         addChild(slideLoader);
 
         navbar = new Navbar();
@@ -73,6 +45,31 @@ public class Application extends Sprite{
         appmodel.currentSlide = 0;
 
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions);
+    }
+
+    private function navBarOptions(e:KeyboardEvent):void {
+
+        var navbarTween:Tween = new Tween(navbar, 0.8, Transitions.EASE_OUT);
+
+        switch(e.keyCode){
+            case Keyboard.SPACE:
+                    if(isNavbar)
+                        navbarTween.animate('y', Starling.current.stage.stageHeight);
+                    else
+                        navbarTween.animate('y', Starling.current.stage.stageHeight - navbar.height);
+
+                    Starling.juggler.add(navbarTween);
+                    isNavbar = !isNavbar;
+            break;
+            case Keyboard.LEFT:
+                    if(isNavbar) appmodel.navBarPreviousSlide();
+                    else appmodel.gotoPreviousSlide();
+            break;
+            case Keyboard.RIGHT:
+                    if(isNavbar) appmodel.navBarNextSlide();
+                    else appmodel.gotoNextSlide();
+            break;
+        }
     }
 }
 }

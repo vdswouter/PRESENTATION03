@@ -25,10 +25,9 @@ public class SlideLoader extends Sprite {
     // Constructor
     public function SlideLoader() {
 
-        this.appmodel = AppModel.getInstance();
+        appmodel = AppModel.getInstance();
 
-        // TODO waarschijnlijk beter zonder parameter
-        var slideBackground:SlideBackground= new SlideBackground(appmodel.settingsvo);
+        var slideBackground:SlideBackground= new SlideBackground();
         addChild(slideBackground);
 
         appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
@@ -36,23 +35,18 @@ public class SlideLoader extends Sprite {
 
     private function currentSlideChanged(e:Event):void {
 
-//        trace('[SLIDELOADER] nieuwe slide inladen');
-
-        if(!isFirstRun) currentSlide = slide;
-
-        slide = new Slide(appmodel.slides[appmodel.currentSlide], appmodel.settingsvo);
-        slide.x = slide.y = 0;
-
-        if(isFirstRun){
+        if(!isFirstRun){
+            if(currentSlide) removeChild(currentSlide);
             currentSlide = slide;
-            addChild(slide);
-        } else {
-            tweenSlides();
         }
 
-        isFirstRun = false;
+        slide = new Slide();
+        slide.x = slide.y = 0;
 
-        trace('[] currSlide pageNumber:', currentSlide.slidevo.slideNumber);
+        if(isFirstRun) addChild(slide);
+        else tweenSlides();
+
+        isFirstRun = false;
     }
 
     private function tweenSlides():void {
@@ -60,17 +54,15 @@ public class SlideLoader extends Sprite {
         var transitionCurrSlide:Tween = new Tween(currentSlide, 1, Transitions.EASE_OUT);
         var transitionSlide:Tween = new Tween(slide, 1, Transitions.EASE_OUT);
 
-        // TODO bij het gaan van de 1ste naar de laatste slide zou er geen animatie mogen zijn
         var transitionType:String;
-        if(currentSlide.slidevo.slideNumber < slide.slidevo.slideNumber)
+        if(currentSlide.slidevo.slideNumber < slide.slidevo.slideNumber && slide.slidevo.slideNumber != appmodel.slides.length)
             transitionType = currentSlide.slidevo.transition;
         else
             transitionType = 'none';
 
+//        trace('[SLIDELOADER] transition: ', transitionType);
         switch( transitionType ){
             case 'alpha':
-                    trace('[SLIDELOADER] transition = alpha');
-
                     slide.alpha = 0;
                     addChild(slide);
                     setChildIndex(slide, 1);
@@ -79,17 +71,13 @@ public class SlideLoader extends Sprite {
                     transitionSlide.fadeTo(1);
             break;
             case 'push left':
-                trace('[SLIDELOADER] transition = push left');
+                    slide.x = 0 - currentSlide.width;
+                    addChild(slide);
 
-                slide.x = 0 - currentSlide.width;
-                addChild(slide);
-
-                transitionCurrSlide.animate('x', Starling.current.stage.stageWidth);
-                transitionSlide.animate('x', 0);
+                    transitionCurrSlide.animate('x', Starling.current.stage.stageWidth);
+                    transitionSlide.animate('x', 0);
             break;
             case 'push right':
-                    trace('[SLIDELOADER] transition = push right');
-
                     slide.x = Starling.current.stage.stageWidth;
                     addChild(slide);
 
@@ -98,19 +86,15 @@ public class SlideLoader extends Sprite {
             break;
             case 'push up':
                     //TODO y waarde currSlide na tween is verkeerd ??? THE FOK
-                    trace('[SLIDELOADER] transition = push up');
-
                     slide.y = Starling.current.stage.stageHeight + slide.height;
                     addChild(slide);
 
-//                    trace('[] currentslide.y:', currentSlide.y);
-//                    trace('[] currentslide.height:', currentSlide.height);
+                    trace('[] currentslide.y:', currentSlide.y);
+                    trace('[] currentslide.height:', currentSlide.height);
                     transitionCurrSlide.animate('y', -currentSlide.height);
                     transitionSlide.animate('y', 0);
             break;
             case 'push down':
-                    trace('[SLIDELOADER] transition = push down');
-                    trace('[] slide.height:', slide.height);
                     slide.y = -slide.height;
                     addChild(slide);
 
@@ -118,8 +102,6 @@ public class SlideLoader extends Sprite {
                     transitionSlide.animate('y', 0);
             break;
             case 'push top left':
-                    trace('[SLIDELOADER] transition = push top left');
-
                     slide.x = -slide.width;
                     slide.y = -slide.height;
                     addChild(slide);
@@ -128,8 +110,6 @@ public class SlideLoader extends Sprite {
                     transitionSlide.moveTo(0, 0);
             break;
             case 'push top right':
-                    trace('[SLIDELOADER] transition = push top right');
-
                     slide.x = Starling.current.stage.stageWidth + slide.width;
                     slide.y = Starling.current.stage.stageHeight + slide.height;
                     addChild(slide);
@@ -138,8 +118,6 @@ public class SlideLoader extends Sprite {
                     transitionSlide.moveTo(0, 0);
             break;
             case 'push bottom left':
-                    trace('[SLIDELOADER] transition = push bottom left');
-
                     slide.x = -slide.width;
                     slide.y = Starling.current.stage.stageHeight + slide.height;
                     addChild(slide);
@@ -148,8 +126,6 @@ public class SlideLoader extends Sprite {
                     transitionSlide.moveTo(0, 0);
             break;
             case 'push bottom right':
-                    trace('[SLIDELOADER] transition = push bottom right');
-
                     slide.x = Starling.current.stage.stageWidth;
                     slide.y = Starling.current.stage.stageHeight;
                     addChild(slide);
@@ -158,7 +134,6 @@ public class SlideLoader extends Sprite {
                     transitionSlide.moveTo(0, 0);
             break;
             case 'zoom':
-                    trace('[SLIDELOADER] transition = zoom');
                     slide.alpha = 0;
                     slide.scaleX = slide.scaleY = -2;
                     addChild(slide);
@@ -169,22 +144,20 @@ public class SlideLoader extends Sprite {
                     transitionSlide.fadeTo(1);
             break;
             case 'none':
-                trace('[SLIDELOADER] transition = none');
                 addChild(slide);
-                removeCurrSlide();
+                removeCurrentSlide();
             break;
         }
 
-        transitionCurrSlide.onComplete = removeCurrSlide;
+        if(transitionType != 'none') transitionCurrSlide.onComplete = removeCurrentSlide;
         Starling.juggler.add(transitionCurrSlide);
         Starling.juggler.add(transitionSlide);
     }
 
-    private function removeCurrSlide():void {
+    private function removeCurrentSlide():void {
 
-//        trace('[] currentslide.y:', currentSlide.y);
-
-        if(currentSlide != null){
+        trace('[] currentslide.y:', currentSlide.y);
+        if(currentSlide.parent && currentSlide != null){
             removeChild(currentSlide);
         }
     }

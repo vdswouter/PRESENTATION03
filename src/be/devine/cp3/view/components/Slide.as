@@ -1,7 +1,8 @@
 package be.devine.cp3.view.components {
 import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.VO.SlideVO;
-import be.devine.cp3.factory.TextfieldFactory;
+import be.devine.cp3.factory.view.TextfieldFactory;
+import be.devine.cp3.model.AppModel;
 
 import flash.display.BitmapData;
 
@@ -11,15 +12,18 @@ import flash.net.URLRequest;
 
 import starling.core.Starling;
 import starling.display.Image;
+import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.HAlign;
+import starling.utils.VAlign;
 
 public class Slide extends Sprite {
 
     // Properties
+    private var appmodel:AppModel;
     public var slidevo:SlideVO;
     private var settings:SettingsVO;
 
@@ -28,15 +32,14 @@ public class Slide extends Sprite {
     private var fotoLoader:Loader;
     private var foto:Image;
 
-
     // Constructor
-    public function Slide(slidevo:SlideVO, settings:SettingsVO) {
+    public function Slide() {
 
-        this.slidevo = slidevo;
-        this.settings = settings;
+        appmodel = AppModel.getInstance();
+        slidevo = appmodel.slides[appmodel.currentSlide];
+        settings = appmodel.settingsvo;
 
-
-//        trace("[slide] "+slidevo.slideType);
+//        trace("[SLIDE] slidetype: "+slidevo.slideType);
         switch( slidevo.slideType ){
             case 'title':
                 createTitle();
@@ -58,17 +61,11 @@ public class Slide extends Sprite {
 
     private function createTitle():void {
 
-//        trace('[SLIDE] createTitle');
-
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
-        title.x = Starling.current.stage.stageWidth / 2 - title.width / 2;
-        title.y = Starling.current.stage.stageHeight / 2 - title.textBounds.height / 2;
+        title = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER, VAlign.CENTER);
         addChild(title);
     }
 
     private function createTitleList():void {
-
-//        trace('[SLIDE] createTitleList');
 
         title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
         title.x = Starling.current.stage.stageWidth /2 - title.width /2;
@@ -78,7 +75,7 @@ public class Slide extends Sprite {
         var yPos:uint = 0;
         var listCon:Sprite = new Sprite();
 
-        for each( var list:String in slidevo.list){
+        for each( var list:String in slidevo.list ){
             var listItem:TextField = TextfieldFactory.create(400, 50, list, true, settings.listColor, settings.listFont, settings.listFontSize );
             listItem.y = yPos;
             yPos += listItem.height + 10;
@@ -91,7 +88,6 @@ public class Slide extends Sprite {
     }
 
     private function createImage():void {
-//        trace('[SLIDE] createImage');
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
@@ -99,7 +95,6 @@ public class Slide extends Sprite {
     }
 
     private function SingleFotoLoaded(event:Event):void {
-        //TODO: single foto maakt dat slide geen width of height heeft
 
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
@@ -118,10 +113,7 @@ public class Slide extends Sprite {
         addChild(foto);
     }
 
-
-
     private function createImageList():void {
-//        trace('[SLIDE] createImageList');
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
@@ -148,6 +140,7 @@ public class Slide extends Sprite {
     }
 
     private function ListFotoLoaded(event:Event):void {
+
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);
@@ -164,7 +157,5 @@ public class Slide extends Sprite {
         foto.y = (Starling.current.stage.stageHeight - foto.height) /2;
         addChild(foto);
     }
-
-
 }
 }

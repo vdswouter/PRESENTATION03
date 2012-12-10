@@ -16,5 +16,6 @@ public class SettingsVO {
     public var listFontSize:uint;
     public var listFont:String;
     public var listColor:uint;
+    public var activeSlideBGColor:uint;
 }
 }

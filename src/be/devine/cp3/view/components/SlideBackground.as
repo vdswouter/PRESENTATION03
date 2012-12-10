@@ -1,6 +1,7 @@
 package be.devine.cp3.view.components {
 import be.devine.cp3.VO.SettingsVO;
-import be.devine.cp3.factory.TextfieldFactory;
+import be.devine.cp3.factory.view.TextfieldFactory;
+import be.devine.cp3.model.AppModel;
 
 import starling.core.Starling;
 import starling.display.Quad;
@@ -12,17 +13,21 @@ public class SlideBackground extends Sprite{
     /**** VARIABELEN ****/
 
     private var settingsvo:SettingsVO;
+    private var appmodel:AppModel;
 
 
     /**** CONSTRUCTOR ****/
-    public function SlideBackground(settingsvo:SettingsVO) {
-        this.settingsvo = settingsvo;
+    public function SlideBackground() {
+
+        appmodel = AppModel.getInstance();
+        settingsvo = appmodel.settingsvo;
 
         generateInfo();
         generateBackground();
     }
 
     private function generateInfo():void {
+
         var infotext:TextField;
         infotext = TextfieldFactory.create(250, 50, settingsvo.userName +"  -  "+settingsvo.createdDate, true, settingsvo.listColor, settingsvo.listFont, 20);
         addChild(infotext);
@@ -55,18 +60,8 @@ public class SlideBackground extends Sprite{
             }
         }
 
-
-
-
-
-
-
-
-
-
         addChild(background);
         background.x = background.y = 0;
-
     }
 }
 }

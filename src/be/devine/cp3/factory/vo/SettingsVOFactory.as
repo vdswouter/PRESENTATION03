@@ -21,6 +21,7 @@ public class SettingsVOFactory {
         settingsvo.listColor = uint("0x"+loadedXML.project.list.color);
         settingsvo.listFont = loadedXML.project.list.font;
         settingsvo.listFontSize = uint(loadedXML.project.list.size);
+        settingsvo.activeSlideBGColor = uint('0x'+loadedXML.project.slide.active_color);
 
         return settingsvo;
     }
