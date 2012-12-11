@@ -12,7 +12,6 @@ import flash.net.URLRequest;
 
 import starling.core.Starling;
 import starling.display.Image;
-import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.text.TextField;
@@ -27,10 +26,14 @@ public class Slide extends Sprite {
     public var slidevo:SlideVO;
     private var settings:SettingsVO;
 
+    private var titleConfig:Object;
+    private var listConfig:Object;
     private var title:TextField;
-
+    private var listItem:TextField;
     private var fotoLoader:Loader;
     private var foto:Image;
+    private var stageWidth:uint;
+    private var stageHeight:uint;
 
     // Constructor
     public function Slide() {
@@ -39,8 +42,23 @@ public class Slide extends Sprite {
         slidevo = appmodel.slides[appmodel.currentSlide];
         settings = appmodel.settingsvo;
 
+        stageWidth = Starling.current.stage.stageWidth;
+        stageHeight = Starling.current.stage.stageHeight;
+
+        titleConfig = {};
+        titleConfig.width = stageWidth * 80/100;
+        titleConfig.color = settings.titleColor;
+        titleConfig.fontName = settings.titleFont;
+        titleConfig.fontSize = settings.titleFontSize;
+
+        listConfig = {};
+        listConfig.color = settings.listColor;
+        listConfig.fontName = settings.listFont;
+        listConfig.fontSize = settings.listFontSize;
+
+
 //        trace("[SLIDE] slidetype: "+slidevo.slideType);
-        switch( slidevo.slideType ){
+        switch (slidevo.slideType) {
             case 'title':
                 createTitle();
                 break;
@@ -61,29 +79,45 @@ public class Slide extends Sprite {
 
     private function createTitle():void {
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER, VAlign.CENTER);
+        titleConfig.text = slidevo.title;
+        titleConfig.height = stageHeight *.8;
+        titleConfig.hAlign = HAlign.CENTER;
+        titleConfig.vAlign = VAlign.CENTER;
+        title = TextfieldFactory.createTextField(titleConfig);
+        title.x = stageWidth /2 - title.width /2;
+        title.y = stageHeight /2 - title.height /2;
         addChild(title);
     }
 
     private function createTitleList():void {
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
-        title.x = Starling.current.stage.stageWidth /2 - title.width /2;
-        title.y = 80;
+        titleConfig.text = slidevo.title;
+        titleConfig.height = 140;
+        titleConfig.hAlign = HAlign.CENTER;
+        titleConfig.vAlign = VAlign.TOP;
+        title = TextfieldFactory.createTextField(titleConfig);
+        title.x = stageWidth /2 - title.width /2;
+        title.y = 40;
         addChild(title);
 
         var yPos:uint = 0;
         var listCon:Sprite = new Sprite();
+        listConfig.width = stageWidth /2;
+        listConfig.height = 50;
+        listConfig.hAlign = HAlign.LEFT;
+        listConfig.vAlign = VAlign.CENTER;
 
         for each( var list:String in slidevo.list ){
-            var listItem:TextField = TextfieldFactory.create(400, 50, list, true, settings.listColor, settings.listFont, settings.listFontSize );
+            listConfig.text = list;
+            listItem = TextfieldFactory.createTextField(listConfig);
+            //TODO valign top klopt gelijk niet
             listItem.y = yPos;
             yPos += listItem.height + 10;
             listCon.addChild(listItem);
         }
 
-        listCon.x = Starling.current.stage.stageWidth /2 - listCon.width /2;
-        listCon.y = Starling.current.stage.stageHeight /2 - listCon.height /2;
+        listCon.x = title.x;
+        listCon.y = title.y + title.height + 30;
         addChild(listCon);
     }
 
@@ -119,23 +153,33 @@ public class Slide extends Sprite {
         fotoLoader.load(new URLRequest(slidevo.img_path));
         fotoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, ListFotoLoaded);
 
-        title = TextfieldFactory.create(Starling.current.stage.stageWidth, 60, slidevo.title, true, settings.titleColor, settings.titleFont, settings.titleFontSize, HAlign.CENTER);
-        title.x = Starling.current.stage.stageWidth /2 - title.width /2;
-        title.y = 80;
+        titleConfig.text = slidevo.title;
+        titleConfig.height = 140;
+        titleConfig.hAlign = HAlign.CENTER;
+        titleConfig.vAlign = VAlign.TOP;
+        title = TextfieldFactory.createTextField(titleConfig);
+        title.x = stageWidth /2 - title.width /2;
+        title.y = 40;
         addChild(title);
 
         var yPos:uint = 0;
         var listCon:Sprite = new Sprite();
+        listConfig.width = 400;
+        listConfig.height = 50;
+        listConfig.hAlign = HAlign.LEFT;
+        listConfig.vAlign = VAlign.CENTER;
 
         for each( var list:String in slidevo.list){
-            var listItem:TextField = TextfieldFactory.create(400, 50, list, true, settings.listColor, settings.listFont, settings.listFontSize );
+            listItem = TextfieldFactory.create(400, 50, list, true, settings.listColor, settings.listFont, settings.listFontSize );
+            listConfig.text = list;
+            listItem = TextfieldFactory.createTextField(listConfig);
             listItem.y = yPos;
             yPos += listItem.height + 10;
             listCon.addChild(listItem);
         }
 
-        listCon.x = Starling.current.stage.stageWidth /2;
-        listCon.y = Starling.current.stage.stageHeight /2 - listCon.height /2;
+        listCon.x = stageWidth /2;
+        listCon.y = title.y + title.height + 30;
         addChild(listCon);
     }
 

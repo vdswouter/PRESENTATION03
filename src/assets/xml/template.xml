@@ -35,7 +35,7 @@
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>
             </img>
-            <title>SLIDE 1</title>
+            <title>SLIDE 1 IS DE PIONIER ONDER DE SLIDES</title>
             <list>
                 <text>Dit is het eerste</text>
                 <text>Dit is het tweede</text>
@@ -46,7 +46,7 @@
         </slide>
 
         <slide page="2" type="title" transition="push up">
-            <title>SLIDE 2</title>
+            <title>SLIDE 2 HEEFT EEN TITEL ZOAL JE NOG NOOIT HEBT GEZIEN, ZON TITEL HE ZOALS DEZE, DIE IS ECHT LANG, ZO LANG, TIS CRAZY</title>
         </slide>
 
         <slide page="3" type="image" transition="push up">
@@ -57,7 +57,7 @@
         </slide>
 
         <slide page="4" type="title+list" transition="push right">
-            <title>SLIDE 4</title>
+            <title>SLIDE 4 IS EEN SLIDE DIE MASSAS AWESOME IS, DAAROM DAT IK HEM OOK ZO LANG MAAK</title>
             <list>
                 <text>Dit is het eerste</text>
                 <text>Dit is het tweede</text>

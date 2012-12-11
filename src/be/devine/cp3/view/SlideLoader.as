@@ -89,8 +89,8 @@ public class SlideLoader extends Sprite {
                     slide.y = Starling.current.stage.stageHeight + slide.height;
                     addChild(slide);
 
-                    trace('[] currentslide.y:', currentSlide.y);
-                    trace('[] currentslide.height:', currentSlide.height);
+//                    trace('[SLIDELOADER] currentslide.y:', currentSlide.y);
+//                    trace('[SLIDELOADER] currentslide.height:', currentSlide.height);
                     transitionCurrSlide.animate('y', -currentSlide.height);
                     transitionSlide.animate('y', 0);
             break;
@@ -156,7 +156,7 @@ public class SlideLoader extends Sprite {
 
     private function removeCurrentSlide():void {
 
-        trace('[] currentslide.y:', currentSlide.y);
+//        trace('[SLIDELOADER] currentslide.y:', currentSlide.y);
         if(currentSlide.parent && currentSlide != null){
             removeChild(currentSlide);
         }

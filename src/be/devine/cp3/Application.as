@@ -31,6 +31,9 @@ public class Application extends Sprite{
         appmodel.addEventListener(AppModel.XML_LOADED, onXMLIsLoaded);
 
         // TODO resize handler + fullscreen modus
+
+        // DONE
+        // Textfieldfactory's geupdate naar leesbaardere versie
     }
 
     private function onXMLIsLoaded(e:Event):void {

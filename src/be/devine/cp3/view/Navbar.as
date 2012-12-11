@@ -119,7 +119,7 @@ public class Navbar extends Sprite {
     //TODO als je te vlug de navbar bestuurd bugt het
     private function goToPreviousSlide(e:Event):void {
 
-        if( slidesCon.x < bg.x + 10 ) {
+        if( slidesCon.x < bg.x + 10 ){
             slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
             slidesConTween.animate('x', slidesCon.x + 10 + miniature.width);
         }
