@@ -5,15 +5,14 @@ import be.devine.cp3.factory.view.TextfieldFactory;
 import be.devine.cp3.model.AppModel;
 
 import flash.display.BitmapData;
-
 import flash.display.Loader;
 import flash.events.Event;
 import flash.net.URLRequest;
 
 import starling.core.Starling;
 import starling.display.Image;
-
 import starling.display.Sprite;
+import starling.events.Event;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.HAlign;
@@ -37,7 +36,7 @@ public class Slide extends Sprite {
 
     // Constructor
     public function Slide(binnenKomendeSlideVO:SlideVO = null) {
-
+        trace("[Slide] Construct");
         appmodel = AppModel.getInstance();
         if(binnenKomendeSlideVO != null){
             slidevo = binnenKomendeSlideVO;
@@ -59,6 +58,8 @@ public class Slide extends Sprite {
         listConfig.color = settings.listColor;
         listConfig.fontName = settings.listFont;
         listConfig.fontSize = settings.listFontSize;
+        listConfig.bullet = settings.bullet;
+
 
 
 //        trace("[SLIDE] slidetype: "+slidevo.slideType);
@@ -80,6 +81,7 @@ public class Slide extends Sprite {
                 break;
         }
     }
+
 
     private function createTitle():void {
 
@@ -114,7 +116,6 @@ public class Slide extends Sprite {
         for each( var list:String in slidevo.list ){
             listConfig.text = list;
             listItem = TextfieldFactory.createTextField(listConfig);
-            //TODO valign top klopt gelijk niet
             listItem.y = yPos;
             yPos += listItem.height + 10;
             listCon.addChild(listItem);
@@ -129,10 +130,10 @@ public class Slide extends Sprite {
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
-        fotoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, SingleFotoLoaded);
+        fotoLoader.contentLoaderInfo.addEventListener(flash.events.Event.COMPLETE, SingleFotoLoaded);
     }
 
-    private function SingleFotoLoaded(event:Event):void {
+    private function SingleFotoLoaded(event:flash.events.Event):void {
 
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
@@ -155,7 +156,7 @@ public class Slide extends Sprite {
 
         fotoLoader = new Loader();
         fotoLoader.load(new URLRequest(slidevo.img_path));
-        fotoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, ListFotoLoaded);
+        fotoLoader.contentLoaderInfo.addEventListener(flash.events.Event.COMPLETE, ListFotoLoaded);
 
         titleConfig.text = slidevo.title;
         titleConfig.height = 140;
@@ -187,8 +188,8 @@ public class Slide extends Sprite {
         addChild(listCon);
     }
 
-    private function ListFotoLoaded(event:Event):void {
-
+    private function ListFotoLoaded(event:flash.events.Event):void {
+        trace("LIST FOTO LOADED");
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);

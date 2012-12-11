@@ -3,14 +3,15 @@ import be.devine.cp3.model.AppModel;
 import be.devine.cp3.view.Navbar;
 import be.devine.cp3.view.SlideLoader;
 
+import flash.display.Stage;
+
 import flash.ui.Keyboard;
 
 import starling.animation.Transitions;
-
 import starling.animation.Tween;
-
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.display.Stage;
 import starling.events.Event;
 import starling.events.KeyboardEvent;
 
@@ -19,6 +20,8 @@ public class Application extends Sprite{
     /**** VARIABELEN ****/
     private var appmodel:AppModel;
     private var navbar:Navbar;
+    private var slideLoader:SlideLoader;
+
 
     private var isNavbar:Boolean = false;
 
@@ -32,22 +35,21 @@ public class Application extends Sprite{
 
         // TODO resize handler + fullscreen modus
 
-        // DONE
-        // Textfieldfactory's geupdate naar leesbaardere versie
+        appmodel.addEventListener(AppModel.RESIZED, onResized)
     }
 
     private function onXMLIsLoaded(e:Event):void {
-
-        var slideLoader:SlideLoader = new SlideLoader();
+        trace("[Application] XML loaded");
+        slideLoader = new SlideLoader();
         addChild(slideLoader);
 
         navbar = new Navbar();
-        navbar.y = Starling.current.stage.stageHeight;
+        navbar.y = appmodel.windowHeight;
         addChild(navbar);
 
         appmodel.currentSlide = 0;
 
-        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN,  navBarOptions);
+        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, navBarOptions);
     }
 
     private function navBarOptions(e:KeyboardEvent):void {
@@ -57,9 +59,9 @@ public class Application extends Sprite{
         switch(e.keyCode){
             case Keyboard.SPACE:
                     if(isNavbar)
-                        navbarTween.animate('y', Starling.current.stage.stageHeight);
+                        navbarTween.animate('y', appmodel.windowHeight);
                     else
-                        navbarTween.animate('y', Starling.current.stage.stageHeight - navbar.height);
+                        navbarTween.animate('y', appmodel.windowHeight - navbar.height-20);
 
                     Starling.juggler.add(navbarTween);
                     isNavbar = !isNavbar;
@@ -72,7 +74,18 @@ public class Application extends Sprite{
                     if(isNavbar) appmodel.navBarNextSlide();
                     else appmodel.gotoNextSlide();
             break;
+            case Keyboard.F:
+                    //GOTO FULLSCREEN
+                break;
         }
+    }
+
+
+    private function onResized(e:Event):void {
+        if(isNavbar)
+            navbar.y = appmodel.windowHeight - navbar.height-20;
+        else
+            navbar.y = appmodel.windowHeight;
     }
 }
 }

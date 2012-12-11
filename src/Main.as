@@ -1,29 +1,26 @@
 package {
 
 import be.devine.cp3.Application;
-import be.devine.cp3.utils.OverloopFonts;
-
-import flash.display.DisplayObject;
+import be.devine.cp3.model.AppModel;
 
 import flash.display.MovieClip;
 import flash.display.Screen;
-import flash.display.Sprite;
-
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
-import flash.events.ProgressEvent;
-
-import flash.utils.getDefinitionByName;
 
 import starling.core.Starling;
 
 public class Main extends MovieClip {
 
+    private var starling:Starling;
+    private var appmodel:AppModel;
 
     public function Main() {
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
+
+        appmodel = AppModel.getInstance();
 
         stage.nativeWindow.visible = true;
         stage.nativeWindow.width = 1024;
@@ -33,8 +30,18 @@ public class Main extends MovieClip {
         stage.nativeWindow.title = 'Presentation Engine';
         stage.frameRate = 60;
 
-        var starling:Starling = new Starling(Application,stage);
+
+        starling = new Starling(Application,stage);
         starling.start();
+
+        stage.addEventListener(Event.RESIZE, resizeHandler );
+
+    }
+
+
+    private function resizeHandler(event:Event):void {
+        appmodel.windowWidth = stage.nativeWindow.width;
+        appmodel.windowHeight = stage.nativeWindow.height;
     }
 }
 }

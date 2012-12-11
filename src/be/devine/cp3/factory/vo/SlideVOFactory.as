@@ -6,7 +6,6 @@ public class SlideVOFactory {
 
     public static function createSlideVOFromXML(slide:XML):SlideVO {
 
-        //TODO vragen ofdat het nog meer moet opgeslitst worden
 
         var slidevo:SlideVO = new SlideVO();
         slidevo.slideType = slide.@type;

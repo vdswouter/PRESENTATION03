@@ -5,20 +5,16 @@ import be.devine.cp3.factory.view.TextfieldFactory;
 import be.devine.cp3.model.AppModel;
 
 import starling.animation.Transitions;
-
 import starling.animation.Tween;
-
 import starling.core.Starling;
 import starling.display.Quad;
-
-
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.text.TextField;
 
-public class SlideMiniature extends Sprite{
+public class SlideMiniature extends Sprite {
 
     /**** VARIABELEN ****/
 
@@ -38,6 +34,7 @@ public class SlideMiniature extends Sprite{
         appmodel = AppModel.getInstance();
         this.slidevo = slidevo;
         settings = appmodel.settingsvo;
+        this.useHandCursor = true;
 
         bgActive = new Quad(Starling.current.stage.stageWidth + 20, Starling.current.stage.stageHeight + 20, appmodel.settingsvo.activeSlideBGColor);
         bgActive.x = -10;
@@ -45,7 +42,7 @@ public class SlideMiniature extends Sprite{
         bgActive.alpha = 0;
         addChild(bgActive);
 
-        var background:SlideBackground= new SlideBackground();
+        var background:SlideBackground= new SlideBackground(false);
         addChild(background);
 
         var slide:Slide = new Slide(slidevo);

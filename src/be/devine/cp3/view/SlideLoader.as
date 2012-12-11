@@ -4,10 +4,8 @@ import be.devine.cp3.view.components.Slide;
 import be.devine.cp3.view.components.SlideBackground;
 
 import starling.animation.Transitions;
-
 import starling.animation.Tween;
 import starling.core.Starling;
-
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -31,6 +29,21 @@ public class SlideLoader extends Sprite {
         addChild(slideBackground);
 
         appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
+        appmodel.addEventListener(AppModel.RESIZED,OnResize);
+    }
+
+    private function OnResize(event:Event):void {
+        var scX:Number;
+        var scY:Number;
+        scX = appmodel.windowWidth / 1024;
+        scY = appmodel.windowHeight / 768;
+
+        if(scX > scY){
+            slide.scaleX = slide.scaleY = scY;
+        }else{
+            slide.scaleY = slide.scaleX = scX;
+        }
+
     }
 
     private function currentSlideChanged(e:Event):void {
@@ -47,6 +60,7 @@ public class SlideLoader extends Sprite {
         else tweenSlides();
 
         isFirstRun = false;
+        OnResize(null);
     }
 
     private function tweenSlides():void {

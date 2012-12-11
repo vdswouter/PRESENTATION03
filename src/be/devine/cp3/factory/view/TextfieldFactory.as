@@ -44,14 +44,13 @@ public class TextfieldFactory
             t.vAlign = VAlign.TOP;
             t.border = true;
 
-            if( config.name == 'list'){
-                trace('[TXTFACTORY] hAlign:', config.hAlign);
-                trace('[TXTFACTORY] vAlign:', config.vAlign);
-            }
-
-
             if(config.text != null)
-                t.text = config.text;
+                if(config.bullet == null){
+                    t.text = config.text;
+                }else{
+                    t.text = config.bullet + "  " + config.text;
+                    t.autoScale = true;
+                }
             if(config.width != null)
                 t.width = config.width;
             if(config.height != null)

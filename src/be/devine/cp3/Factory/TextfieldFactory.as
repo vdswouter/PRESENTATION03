@@ -2,10 +2,7 @@ package be.devine.cp3.factory
 {
 
 
-import com.greensock.layout.AlignMode;
-
 import starling.text.TextField;
-import starling.utils.Color;
 import starling.utils.HAlign;
 import starling.utils.VAlign;
 

@@ -3,12 +3,13 @@ import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.VO.SlideVO;
 import be.devine.cp3.factory.vo.SettingsVOFactory;
 import be.devine.cp3.factory.vo.SlideVOFactory;
-import be.devine.cp3.model.AppModel;
 
 import flash.events.Event;
+import flash.geom.Rectangle;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
+import starling.core.Starling;
 import starling.events.Event;
 import starling.events.EventDispatcher;
 
@@ -19,6 +20,7 @@ public class AppModel extends EventDispatcher {
     public static const NAVBAR_NEXT_SLIDE:String = 'navBarNextSlide';
     public static const CURRENT_SLIDE_CHANGED:String = 'currentSlideChanged';
     public static const XML_LOADED:String = 'xmlIsIngeladen';
+    public static const RESIZED:String = 'resized';
 
     public static var instance:AppModel;
 
@@ -26,6 +28,10 @@ public class AppModel extends EventDispatcher {
     public var settingsvo:SettingsVO;
 
     private var _currentSlide:int = 1;
+
+    private var _windowWidth:uint;
+    private var _windowHeight:uint;
+
 
 
     /**** CONSTRUCTOR ****/
@@ -64,7 +70,9 @@ public class AppModel extends EventDispatcher {
             slidevo = SlideVOFactory.createSlideVOFromXML(slide);
             slides.push(slidevo);
         }
-        dispatchEvent(new starling.events.Event(AppModel.XML_LOADED,true));
+
+        trace("[AppModel] Parse XML Done");
+        dispatchEvent(new starling.events.Event(AppModel.XML_LOADED));
     }
 
     public function navBarPreviousSlide():void {
@@ -103,6 +111,30 @@ public class AppModel extends EventDispatcher {
         }else{
             currentSlide --;
         }
+    }
+
+    public function set windowWidth(value:uint):void {
+        _windowWidth = value;
+        Starling.current.viewPort = new Rectangle(0,0,_windowWidth,_windowHeight);
+        Starling.current.stage.stageWidth = _windowWidth;
+        Starling.current.stage.stageHeight = _windowHeight;
+        this.dispatchEvent(new starling.events.Event(RESIZED));
+    }
+
+    public function set windowHeight(value:uint):void {
+        _windowHeight = value;
+        Starling.current.viewPort = new Rectangle(0,0,_windowWidth,_windowHeight);
+        Starling.current.stage.stageWidth = _windowWidth;
+        Starling.current.stage.stageHeight = _windowHeight;
+        this.dispatchEvent(new starling.events.Event(RESIZED));
+    }
+
+    public function get windowWidth():uint {
+        return _windowWidth;
+    }
+
+    public function get windowHeight():uint {
+        return _windowHeight;
     }
 }
 }

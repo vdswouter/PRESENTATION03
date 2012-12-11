@@ -17,5 +17,6 @@ public class SettingsVO {
     public var listFont:String;
     public var listColor:uint;
     public var activeSlideBGColor:uint;
+    public var bullet:String = "";
 }
 }
