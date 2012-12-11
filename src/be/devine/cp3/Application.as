@@ -3,7 +3,6 @@ import be.devine.cp3.model.AppModel;
 import be.devine.cp3.view.Navbar;
 import be.devine.cp3.view.SlideLoader;
 
-import flash.display.Stage;
 
 import flash.ui.Keyboard;
 
@@ -11,7 +10,6 @@ import starling.animation.Transitions;
 import starling.animation.Tween;
 import starling.core.Starling;
 import starling.display.Sprite;
-import starling.display.Stage;
 import starling.events.Event;
 import starling.events.KeyboardEvent;
 
@@ -32,8 +30,6 @@ public class Application extends Sprite{
 
         appmodel.load("/assets/xml/template.xml");
         appmodel.addEventListener(AppModel.XML_LOADED, onXMLIsLoaded);
-
-        // TODO resize handler + fullscreen modus
 
         appmodel.addEventListener(AppModel.RESIZED, onResized)
     }
@@ -75,7 +71,7 @@ public class Application extends Sprite{
                     else appmodel.gotoNextSlide();
             break;
             case Keyboard.F:
-                    //GOTO FULLSCREEN
+                    appmodel.fullscreen = !appmodel.fullscreen;
                 break;
         }
     }

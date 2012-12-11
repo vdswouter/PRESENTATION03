@@ -9,10 +9,8 @@ import flash.display.Loader;
 import flash.events.Event;
 import flash.net.URLRequest;
 
-import starling.core.Starling;
 import starling.display.Image;
 import starling.display.Sprite;
-import starling.events.Event;
 import starling.text.TextField;
 import starling.textures.Texture;
 import starling.utils.HAlign;
@@ -36,7 +34,6 @@ public class Slide extends Sprite {
 
     // Constructor
     public function Slide(binnenKomendeSlideVO:SlideVO = null) {
-        trace("[Slide] Construct");
         appmodel = AppModel.getInstance();
         if(binnenKomendeSlideVO != null){
             slidevo = binnenKomendeSlideVO;
@@ -45,8 +42,10 @@ public class Slide extends Sprite {
         }
         settings = appmodel.settingsvo;
 
-        stageWidth = Starling.current.stage.stageWidth;
-        stageHeight = Starling.current.stage.stageHeight;
+//        stageWidth = Starling.current.stage.stageWidth;
+//        stageHeight = Starling.current.stage.stageHeight;
+        stageHeight = 768;
+        stageWidth = 1024;
 
         titleConfig = {};
         titleConfig.width = stageWidth * 80/100;
@@ -147,8 +146,8 @@ public class Slide extends Sprite {
             scale = (600/foto.width);
         }
         foto.scaleX = foto.scaleY = scale;
-        foto.x = (Starling.current.stage.stageWidth - foto.width) /2;
-        foto.y = (Starling.current.stage.stageHeight - foto.height) /2;
+        foto.x = (stageWidth - foto.width) /2;
+        foto.y = (stageHeight - foto.height) /2;
         addChild(foto);
     }
 
@@ -189,7 +188,6 @@ public class Slide extends Sprite {
     }
 
     private function ListFotoLoaded(event:flash.events.Event):void {
-        trace("LIST FOTO LOADED");
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);
@@ -202,8 +200,8 @@ public class Slide extends Sprite {
             scale = (300/foto.width);
         }
         foto.scaleX = foto.scaleY = scale;
-        foto.x = (Starling.current.stage.stageWidth - foto.width) /8;
-        foto.y = (Starling.current.stage.stageHeight - foto.height) /2;
+        foto.x = (stageWidth - foto.width) /8;
+        foto.y = (stageHeight - foto.height) /2;
         addChild(foto);
     }
 }

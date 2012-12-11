@@ -6,10 +6,12 @@ import be.devine.cp3.model.AppModel;
 import flash.display.MovieClip;
 import flash.display.Screen;
 import flash.display.StageAlign;
+import flash.display.StageDisplayState;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 
 import starling.core.Starling;
+import starling.events.Event;
 
 public class Main extends MovieClip {
 
@@ -34,14 +36,23 @@ public class Main extends MovieClip {
         starling = new Starling(Application,stage);
         starling.start();
 
-        stage.addEventListener(Event.RESIZE, resizeHandler );
+        stage.addEventListener(flash.events.Event.RESIZE, resizeHandler );
+        appmodel.addEventListener(AppModel.FULLSCREEN, onFullscreen)
 
     }
 
 
-    private function resizeHandler(event:Event):void {
+    private function resizeHandler(event:flash.events.Event):void {
         appmodel.windowWidth = stage.nativeWindow.width;
         appmodel.windowHeight = stage.nativeWindow.height;
+    }
+
+    private function onFullscreen(event:starling.events.Event):void {
+        if(appmodel.fullscreen){
+            stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+        }else{
+            stage.displayState = StageDisplayState.NORMAL;
+        }
     }
 }
 }

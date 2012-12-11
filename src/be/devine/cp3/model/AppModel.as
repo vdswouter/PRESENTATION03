@@ -21,6 +21,7 @@ public class AppModel extends EventDispatcher {
     public static const CURRENT_SLIDE_CHANGED:String = 'currentSlideChanged';
     public static const XML_LOADED:String = 'xmlIsIngeladen';
     public static const RESIZED:String = 'resized';
+    public static const FULLSCREEN:String = 'fullscreen';
 
     public static var instance:AppModel;
 
@@ -31,6 +32,7 @@ public class AppModel extends EventDispatcher {
 
     private var _windowWidth:uint;
     private var _windowHeight:uint;
+    private var _fullscreen:Boolean = false;
 
 
 
@@ -72,17 +74,17 @@ public class AppModel extends EventDispatcher {
         }
 
         trace("[AppModel] Parse XML Done");
-        dispatchEvent(new starling.events.Event(AppModel.XML_LOADED));
+        dispatchEvent(new starling.events.Event(XML_LOADED));
     }
 
     public function navBarPreviousSlide():void {
 
-        dispatchEvent( new starling.events.Event(NAVBAR_PREVIOUS_SLIDE) )
+        dispatchEvent( new starling.events.Event(NAVBAR_PREVIOUS_SLIDE) );
     }
 
     public function navBarNextSlide():void {
 
-        dispatchEvent( new starling.events.Event(NAVBAR_NEXT_SLIDE) )
+        dispatchEvent( new starling.events.Event(NAVBAR_NEXT_SLIDE) );
     }
 
     public function get currentSlide():int {
@@ -93,8 +95,7 @@ public class AppModel extends EventDispatcher {
         if( _currentSlide != value ){
 
             _currentSlide = value;
-            dispatchEvent( new starling.events.Event(AppModel.CURRENT_SLIDE_CHANGED, true) );
-//            trace('[Appmodel] currentSlide changed');
+            dispatchEvent( new starling.events.Event(AppModel.CURRENT_SLIDE_CHANGED ) );
         }
     }
 
@@ -135,6 +136,15 @@ public class AppModel extends EventDispatcher {
 
     public function get windowHeight():uint {
         return _windowHeight;
+    }
+
+    public function get fullscreen():Boolean {
+        return _fullscreen;
+    }
+
+    public function set fullscreen(value:Boolean):void {
+        _fullscreen = value;
+        this.dispatchEvent(new starling.events.Event(FULLSCREEN));
     }
 }
 }
