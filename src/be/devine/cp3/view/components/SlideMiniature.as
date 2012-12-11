@@ -48,7 +48,7 @@ public class SlideMiniature extends Sprite{
         var background:SlideBackground= new SlideBackground();
         addChild(background);
 
-        var slide:Slide = new Slide();
+        var slide:Slide = new Slide(slidevo);
         addChild(slide);
 
         index = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, String(slidevo.slideNumber), false, 0xcccccc, "liberator", 1000);

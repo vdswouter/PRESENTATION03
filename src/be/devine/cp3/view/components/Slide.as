@@ -36,10 +36,14 @@ public class Slide extends Sprite {
     private var stageHeight:uint;
 
     // Constructor
-    public function Slide() {
+    public function Slide(binnenKomendeSlideVO:SlideVO = null) {
 
         appmodel = AppModel.getInstance();
-        slidevo = appmodel.slides[appmodel.currentSlide];
+        if(binnenKomendeSlideVO != null){
+            slidevo = binnenKomendeSlideVO;
+        }else{
+            slidevo = appmodel.slides[appmodel.currentSlide];
+        }
         settings = appmodel.settingsvo;
 
         stageWidth = Starling.current.stage.stageWidth;

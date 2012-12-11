@@ -117,21 +117,37 @@ public class Navbar extends Sprite {
 
 
     //TODO als je te vlug de navbar bestuurd bugt het
-    private function goToPreviousSlide(e:Event):void {
+    private var maxClicks:uint;
+    private var currentPos:uint = 0;
 
-        if( slidesCon.x < bg.x + 10 ){
+
+    private function goToPreviousSlide(e:Event):void {
+        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
+        if(currentPos > 0){
+            currentPos--;
             slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
-            slidesConTween.animate('x', slidesCon.x + 10 + miniature.width);
+            slidesConTween.animate('x', (-currentPos*(miniature.width+10))+30);
         }
+
+//        if( currentPos != 0 ){
+//            slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
+//            slidesConTween.animate('x', (currentPos*(miniature.width+10)) + 10 + miniature.width);
+//        }
         Starling.juggler.add(slidesConTween);
     }
 
     private function goToNextSlide(e:Event):void {
-
-        if( slidesCon.x > -((slidesCon.width - bg.width) - miniature.width) ){
+        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
+        if(currentPos < maxClicks){
+            currentPos ++;
             slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
-            slidesConTween.animate('x', slidesCon.x - (10 + miniature.width));
+            slidesConTween.animate('x', (-currentPos*(miniature.width+10))+30);
         }
+
+//        if( currentPos!= maxClicks ){
+//            slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
+//            slidesConTween.animate('x', (currentPos*miniature.width) - (10 + miniature.width));
+//        }
         Starling.juggler.add(slidesConTween);
     }
 
