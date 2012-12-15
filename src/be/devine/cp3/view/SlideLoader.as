@@ -13,10 +13,8 @@ public class SlideLoader extends Sprite {
 
     // Properties
     private var appmodel:AppModel;
-
     private var slide:Slide;
     private var currentSlide:Slide;
-
 
     private var isFirstRun:Boolean= true;
 
@@ -25,25 +23,21 @@ public class SlideLoader extends Sprite {
 
         appmodel = AppModel.getInstance();
 
-        var slideBackground:SlideBackground= new SlideBackground();
-        addChild(slideBackground);
-
-        appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
-        appmodel.addEventListener(AppModel.RESIZED,OnResize);
-    }
-
-    private function OnResize(event:Event):void {
-        var scX:Number;
-        var scY:Number;
-        scX = appmodel.windowWidth / 1024;
-        scY = appmodel.windowHeight / 768;
-
-        if(scX > scY){
-            slide.scaleX = slide.scaleY = scY;
-        }else{
-            slide.scaleY = slide.scaleX = scX;
+        if( slideBackground == null ){
+            var slideBackground:SlideBackground = new SlideBackground();
+            addChild(slideBackground);
         }
 
+        appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
+        appmodel.addEventListener(AppModel.RESIZED, OnResize);
+    }
+
+    private function OnResize(e:Event):void {
+
+        removeChild(slide);
+        slide = new Slide();
+        slide.x = slide.y = 0;
+        addChild(slide);
     }
 
     private function currentSlideChanged(e:Event):void {
@@ -60,7 +54,6 @@ public class SlideLoader extends Sprite {
         else tweenSlides();
 
         isFirstRun = false;
-        OnResize(null);
     }
 
     private function tweenSlides():void {

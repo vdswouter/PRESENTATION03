@@ -10,6 +10,9 @@
         <user>
             <name>Miguel Debruyne</name>
             <created>20/11/12</created>
+            <font>quaver</font>
+            <size>16</size>
+            <color>333333</color>
         </user>
 
         <title>
@@ -43,14 +46,17 @@
                 <text>Dit is het derde</text>
                 <text>Dit is het vierde</text>
                 <text>Dit is het vijfde</text>
+                <text>Dit is het zesde</text>
+                <text>Dit is het zevende</text>
+                <text>Dit is het achtste</text>
             </list>
         </slide>
 
-        <slide page="2" type="title" transition="push up">
+        <slide page="2" type="title" transition="push left">
             <title>SLIDE 2 HEEFT EEN TITEL ZOAL JE NOG NOOIT HEBT GEZIEN, ZON TITEL HE ZOALS DEZE, DIE IS ECHT LANG, ZO LANG, TIS CRAZY</title>
         </slide>
 
-        <slide page="3" type="image" transition="push up">
+        <slide page="3" type="image" transition="push down">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>

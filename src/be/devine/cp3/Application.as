@@ -18,8 +18,6 @@ public class Application extends Sprite{
     /**** VARIABELEN ****/
     private var appmodel:AppModel;
     private var navbar:Navbar;
-    private var slideLoader:SlideLoader;
-
 
     private var isNavbar:Boolean = false;
 
@@ -30,13 +28,12 @@ public class Application extends Sprite{
 
         appmodel.load("/assets/xml/template.xml");
         appmodel.addEventListener(AppModel.XML_LOADED, onXMLIsLoaded);
-
-        appmodel.addEventListener(AppModel.RESIZED, onResized)
+        appmodel.addEventListener(AppModel.RESIZED, onResized);
     }
 
     private function onXMLIsLoaded(e:Event):void {
-        trace("[Application] XML loaded");
-        slideLoader = new SlideLoader();
+
+        var slideLoader:SlideLoader = new SlideLoader();
         addChild(slideLoader);
 
         navbar = new Navbar();

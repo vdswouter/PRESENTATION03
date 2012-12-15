@@ -15,13 +15,19 @@ public class SettingsVOFactory {
         }
         settingsvo.userName = loadedXML.project.user.name;
         settingsvo.createdDate = loadedXML.project.user.created;
+        settingsvo.infoFont = loadedXML.project.user.font;
+        settingsvo.infoFontSize = loadedXML.project.user.size;
+        settingsvo.infoColor = uint("0x"+loadedXML.project.user.color);
+
         settingsvo.titleColor = uint("0x"+loadedXML.project.title.color);
         settingsvo.titleFont = loadedXML.project.title.font;
         settingsvo.titleFontSize = uint(loadedXML.project.title.size);
+
         settingsvo.listColor = uint("0x"+loadedXML.project.list.color);
         settingsvo.listFont = loadedXML.project.list.font;
         settingsvo.listFontSize = uint(loadedXML.project.list.size);
         settingsvo.bullet = String(loadedXML.project.list.bullet);
+
         settingsvo.activeSlideBGColor = uint('0x'+loadedXML.project.slide.active_color);
 
         return settingsvo;

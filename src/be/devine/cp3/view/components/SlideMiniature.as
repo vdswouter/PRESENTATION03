@@ -13,6 +13,8 @@ import starling.events.Event;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.text.TextField;
+import starling.utils.HAlign;
+import starling.utils.VAlign;
 
 public class SlideMiniature extends Sprite {
 
@@ -42,13 +44,23 @@ public class SlideMiniature extends Sprite {
         bgActive.alpha = 0;
         addChild(bgActive);
 
-        var background:SlideBackground= new SlideBackground(false);
+        var background:SlideBackground = new SlideBackground(false);
         addChild(background);
 
         var slide:Slide = new Slide(slidevo);
         addChild(slide);
 
-        index = TextfieldFactory.create(Starling.current.stage.stageWidth, Starling.current.stage.stageHeight, String(slidevo.slideNumber), false, 0xcccccc, "liberator", 1000);
+        var indexObject:Object = {};
+        indexObject.text = String(slidevo.slideNumber);
+        indexObject.width = Starling.current.stage.stageWidth;
+        indexObject.height = Starling.current.stage.stageHeight;
+        indexObject.color = 0xcccccc;
+        indexObject.fontName = 'liberator';
+        indexObject.fontSize = 1000;
+        indexObject.hAlign = HAlign.RIGHT;
+        indexObject.vAlign = VAlign.CENTER;
+
+        index = TextfieldFactory.createTextField(indexObject);
         index.alpha = 0;
         addChild(index);
 

@@ -34,6 +34,7 @@ public class Slide extends Sprite {
 
     // Constructor
     public function Slide(binnenKomendeSlideVO:SlideVO = null) {
+
         appmodel = AppModel.getInstance();
         if(binnenKomendeSlideVO != null){
             slidevo = binnenKomendeSlideVO;
@@ -42,13 +43,11 @@ public class Slide extends Sprite {
         }
         settings = appmodel.settingsvo;
 
-//        stageWidth = Starling.current.stage.stageWidth;
-//        stageHeight = Starling.current.stage.stageHeight;
-        stageHeight = 768;
-        stageWidth = 1024;
+        stageWidth = appmodel.windowWidth;
+        stageHeight = appmodel.windowHeight;
 
         titleConfig = {};
-        titleConfig.width = stageWidth * 80/100;
+        titleConfig.width = stageWidth * .8;
         titleConfig.color = settings.titleColor;
         titleConfig.fontName = settings.titleFont;
         titleConfig.fontSize = settings.titleFontSize;
@@ -57,9 +56,8 @@ public class Slide extends Sprite {
         listConfig.color = settings.listColor;
         listConfig.fontName = settings.listFont;
         listConfig.fontSize = settings.listFontSize;
+        listConfig.height = settings.listFontSize + 10;
         listConfig.bullet = settings.bullet;
-
-
 
 //        trace("[SLIDE] slidetype: "+slidevo.slideType);
         switch (slidevo.slideType) {
@@ -80,7 +78,6 @@ public class Slide extends Sprite {
                 break;
         }
     }
-
 
     private function createTitle():void {
 
@@ -107,8 +104,7 @@ public class Slide extends Sprite {
 
         var yPos:uint = 0;
         var listCon:Sprite = new Sprite();
-        listConfig.width = stageWidth /2;
-        listConfig.height = 50;
+        listConfig.width = title.width;
         listConfig.hAlign = HAlign.LEFT;
         listConfig.vAlign = VAlign.CENTER;
 
@@ -121,7 +117,10 @@ public class Slide extends Sprite {
         }
 
         listCon.x = title.x;
-        listCon.y = title.y + title.height + 30;
+        listCon.y = stageHeight /2 - listCon.height /2;
+        if(listCon.y <= title.y + title.height){
+            listCon.y = title.y + title.height + 30;
+        }
         addChild(listCon);
     }
 
@@ -168,13 +167,12 @@ public class Slide extends Sprite {
 
         var yPos:uint = 0;
         var listCon:Sprite = new Sprite();
+
         listConfig.width = 400;
-        listConfig.height = 50;
         listConfig.hAlign = HAlign.LEFT;
         listConfig.vAlign = VAlign.CENTER;
 
         for each( var list:String in slidevo.list){
-            listItem = TextfieldFactory.create(400, 50, list, true, settings.listColor, settings.listFont, settings.listFontSize );
             listConfig.text = list;
             listItem = TextfieldFactory.createTextField(listConfig);
             listItem.y = yPos;
@@ -183,11 +181,15 @@ public class Slide extends Sprite {
         }
 
         listCon.x = stageWidth /2;
-        listCon.y = title.y + title.height + 30;
+        listCon.y = stageHeight /2 - listCon.height /2;
+        if(listCon.y <= title.y + title.height){
+            listCon.y = title.y + title.height + 30;
+        }
         addChild(listCon);
     }
 
     private function ListFotoLoaded(event:flash.events.Event):void {
+
         var fotoBitmapData:BitmapData = new BitmapData(fotoLoader.width, fotoLoader.height);
         fotoBitmapData.draw(fotoLoader);
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);
@@ -195,13 +197,17 @@ public class Slide extends Sprite {
         foto = new Image(fotoTexture);
         var scale:Number;
         if(foto.width << foto.height){
-            scale = (300/foto.height);
+//            scale = (300/foto.height);
+            scale = (stageWidth / 3.4) / foto.height;
         }else{
-            scale = (300/foto.width);
+//            scale = (300/foto.width);
+            scale = (stageWidth / 3.4) / foto.height;
         }
+
+        if(scale > 1) scale = 1;
         foto.scaleX = foto.scaleY = scale;
-        foto.x = (stageWidth - foto.width) /8;
-        foto.y = (stageHeight - foto.height) /2;
+        foto.x = stageWidth /2 - foto.width - 100;
+        foto.y = stageHeight /2 - foto.height /2;
         addChild(foto);
     }
 }

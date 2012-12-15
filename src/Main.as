@@ -15,7 +15,6 @@ import starling.events.Event;
 
 public class Main extends MovieClip {
 
-    private var starling:Starling;
     private var appmodel:AppModel;
 
     public function Main() {
@@ -33,21 +32,22 @@ public class Main extends MovieClip {
         stage.frameRate = 60;
 
 
-        starling = new Starling(Application,stage);
+        var starling:Starling = new Starling(Application,stage);
         starling.start();
 
         stage.addEventListener(flash.events.Event.RESIZE, resizeHandler );
         appmodel.addEventListener(AppModel.FULLSCREEN, onFullscreen)
-
     }
 
 
     private function resizeHandler(event:flash.events.Event):void {
+
         appmodel.windowWidth = stage.nativeWindow.width;
         appmodel.windowHeight = stage.nativeWindow.height;
     }
 
     private function onFullscreen(event:starling.events.Event):void {
+
         if(appmodel.fullscreen){
             stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
         }else{

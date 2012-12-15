@@ -2,6 +2,7 @@ package be.devine.cp3.view {
 
 import be.devine.cp3.VO.SlideVO;
 import be.devine.cp3.model.AppModel;
+import be.devine.cp3.view.components.SlideBackground;
 import be.devine.cp3.view.components.SlideMiniature;
 
 import starling.animation.Transitions;
@@ -28,19 +29,21 @@ public class Navbar extends Sprite {
 
     private var bg:Quad;
     private var slidesCon:Sprite;
-    private var mk:Quad;
     private var slidesConTween:Tween;
     private var colors:Array = [0xc9c4b0, 0xd3ceba];
 
     private var btnRight:Button;
     private var btnLeft:Button;
 
+    private var maxClicks:uint;
+    private var currentPos:uint = 0;
+
 
     // Constructor
     public function Navbar() {
 
         this.appmodel = AppModel.getInstance();
-        appmodel.addEventListener(AppModel.RESIZED, onResized)
+        appmodel.addEventListener(AppModel.RESIZED, onResized);
         layout();
     }
 
@@ -72,6 +75,7 @@ public class Navbar extends Sprite {
         var spacing:uint = 10;
 
         for each(var slidevo:SlideVO in appmodel.slides) {
+
             miniature = new SlideMiniature(slidevo);
 
             miniature.x = xPos;
@@ -96,12 +100,8 @@ public class Navbar extends Sprite {
         appmodel.currentSlide = clickedSlideVO.slidevo.slideNumber -1;
     }
 
-
-    private var maxClicks:uint;
-    private var currentPos:uint = 0;
-
-
     private function goToPreviousSlide(e:Event):void {
+
         maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
         if(currentPos > 0){
             currentPos--;
@@ -113,6 +113,7 @@ public class Navbar extends Sprite {
     }
 
     private function goToNextSlide(e:Event):void {
+
         maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
         if(currentPos < maxClicks){
             currentPos ++;
@@ -124,8 +125,8 @@ public class Navbar extends Sprite {
     }
 
 
-
     private function onResized(e:Event):void {
+
         bg = new Quad(appmodel.windowWidth-40, 100);
         bg.setVertexColor(0, colors[0]);
         bg.setVertexColor(1, colors[0]);
@@ -136,7 +137,6 @@ public class Navbar extends Sprite {
         setChildIndex(bg, 1);
 
         btnRight.x = appmodel.windowWidth - btnRight.width;
-
     }
 }
 }

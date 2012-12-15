@@ -3,16 +3,14 @@ import be.devine.cp3.VO.SettingsVO;
 import be.devine.cp3.factory.view.TextfieldFactory;
 import be.devine.cp3.model.AppModel;
 
-import flash.events.Event;
-import flash.geom.Rectangle;
+import flash.display.StageDisplayState;
 
-import flashx.textLayout.formats.BackgroundColor;
-
-import starling.core.Starling;
 import starling.display.Quad;
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.text.TextField;
+import starling.utils.HAlign;
+import starling.utils.VAlign;
 
 public class SlideBackground extends Sprite{
 
@@ -25,27 +23,36 @@ public class SlideBackground extends Sprite{
 
 
     /**** CONSTRUCTOR ****/
-    public function SlideBackground(Resize:Boolean = true) {
-
+    public function SlideBackground(resize:Boolean = true) {
+        
         appmodel = AppModel.getInstance();
         settingsvo = appmodel.settingsvo;
-
 
         generateBackground();
         generateInfo();
 
-        if(Resize){
-            appmodel.addEventListener(AppModel.RESIZED, ResizeHandler)
+        if(resize){
+            appmodel.addEventListener(AppModel.RESIZED, resizeHandler);
         }
 
     }
 
     private function generateInfo():void {
 
-        infotext = TextfieldFactory.create(250, 50, settingsvo.userName +"  -  "+settingsvo.createdDate, true, settingsvo.listColor, settingsvo.listFont, 20);
+        var infoTxtConfig:Object = {};
+        infoTxtConfig.text = settingsvo.userName +"  -  "+settingsvo.createdDate;
+        infoTxtConfig.width = appmodel.windowWidth - 10;
+        infoTxtConfig.height = settingsvo.infoFontSize *2;
+        infoTxtConfig.fontSize = settingsvo.infoFontSize;
+        infoTxtConfig.fontname = settingsvo.infoFont;
+        infoTxtConfig.color = settingsvo.infoColor;
+        infoTxtConfig.hAlign = HAlign.RIGHT;
+        infoTxtConfig.vAlign = VAlign.BOTTOM;
+        infotext = TextfieldFactory.createTextField(infoTxtConfig);
+
         addChild(infotext);
-        infotext.x = (appmodel.windowWidth - 250);
-        infotext.y = (appmodel.windowHeight - 60);
+        infotext.x = 0;
+        infotext.y = appmodel.windowHeight - (infotext.height + infotext.textBounds.height + 10);
     }
 
     private function generateBackground():void {
@@ -72,37 +79,20 @@ public class SlideBackground extends Sprite{
         }
 
         addChild(background);
+        setChildIndex(background, 0);
         background.x = background.y = 0;
     }
 
-    private function ResizeHandler(event:starling.events.Event):void {
-        infotext.x = (appmodel.windowWidth - 250);
-        infotext.y = (appmodel.windowHeight - 50);
+    private function resizeHandler(event:Event):void {
 
-        background = new Quad(appmodel.windowWidth, appmodel.windowHeight);
-        if( settingsvo.backgroundType == 'solid' ){
-            background.setVertexColor(0,settingsvo.backgroundColor1);
-            background.setVertexColor(1,settingsvo.backgroundColor1);
-            background.setVertexColor(2,settingsvo.backgroundColor1);
-            background.setVertexColor(3,settingsvo.backgroundColor1);
-        } else {
-            if( settingsvo.gradientDirection == 'horizontal'){
-                background.setVertexColor(0,settingsvo.backgroundColor1);
-                background.setVertexColor(1,settingsvo.backgroundColor2);
-                background.setVertexColor(2,settingsvo.backgroundColor1);
-                background.setVertexColor(3,settingsvo.backgroundColor2);
-            }
-            else if( settingsvo.gradientDirection == 'vertical'){
-                background.setVertexColor(0,settingsvo.backgroundColor1);
-                background.setVertexColor(1,settingsvo.backgroundColor1);
-                background.setVertexColor(2,settingsvo.backgroundColor2);
-                background.setVertexColor(3,settingsvo.backgroundColor2);
-            }
-        }
+        if( background != null ) removeChild(background);
+        generateBackground();
 
-        addChild(background);
-        setChildIndex(background, 1);
-        background.x = background.y = 0;
+        infotext.x = appmodel.windowWidth - infotext.width - 10;
+        if( appmodel.fullscreen )
+            infotext.y = appmodel.windowHeight - infotext.height - 10;
+        else
+            infotext.y = appmodel.windowHeight - (infotext.height + infotext.textBounds.height + 10);
     }
 }
 }
