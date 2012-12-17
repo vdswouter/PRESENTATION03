@@ -29,15 +29,6 @@ public class SlideLoader extends Sprite {
         }
 
         appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
-//        appmodel.addEventListener(AppModel.RESIZED, OnResize);
-    }
-
-    private function OnResize(e:Event):void {
-
-//        removeChild(slide);
-//        slide = new Slide();
-//        slide.x = slide.y = 0;
-//        addChild(slide);
     }
 
     private function currentSlideChanged(e:Event):void {
@@ -160,8 +151,10 @@ public class SlideLoader extends Sprite {
     private function removeCurrentSlide():void {
 
         if(currentSlide.parent && currentSlide != null){
+            currentSlide.removeResize();
             removeChild(currentSlide);
         }
+
     }
 }
 }

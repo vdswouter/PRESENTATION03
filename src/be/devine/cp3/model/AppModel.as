@@ -127,7 +127,6 @@ public class AppModel extends EventDispatcher {
 
         i++;
         if(i == 2){
-            trace('[APPMODEL] WIDTH 2');
             this.dispatchEvent(new starling.events.Event(RESIZED));
             i = 0;
         }
@@ -146,7 +145,6 @@ public class AppModel extends EventDispatcher {
 
         i++;
         if(i == 2){
-            trace('[APPMODEL] HEIGHT 2');
             this.dispatchEvent(new starling.events.Event(RESIZED));
             i = 0;
         }

@@ -34,7 +34,7 @@
     </project>
 
     <slides>
-        <slide page="1" type="image+list" transition="push up">
+        <slide page="1" type="image+list" transition="none">
             <img>
                 <img_path>assets/images/1.jpg</img_path>
                 <scale>0.8</scale>
@@ -52,11 +52,11 @@
             </list>
         </slide>
 
-        <slide page="2" type="title" transition="push left">
+        <slide page="2" type="title" transition="none">
             <title>SLIDE 2 HEEFT EEN TITEL ZOAL JE NOG NOOIT HEBT GEZIEN, ZON TITEL HE ZOALS DEZE, DIE IS ECHT LANG, ZO LANG, TIS CRAZY</title>
         </slide>
 
-        <slide page="3" type="image" transition="push down">
+        <slide page="3" type="image" transition="none">
             <img>
                 <img_path>assets/images/3.png</img_path>
                 <scale>0.8</scale>

@@ -79,12 +79,16 @@ public class Slide extends Sprite {
 //                trace("[SLIDE] Er is geen juist slidetype meegegeven");
                 break;
         }
+
         if(resize){
             appmodel.addEventListener(AppModel.RESIZED, OnResize);
         }
     }
 
     private function OnResize(e:starling.events.Event):void {
+
+        trace('[] parent:', this.parent);
+        trace('[] slidetype:', slidevo.slideType);
 
         switch (slidevo.slideType) {
             case 'title':
@@ -146,7 +150,7 @@ public class Slide extends Sprite {
 //                foto.scaleX = foto.scaleY = scale;
 
 
-                trace('[SLIDE] SCALE:', scaleImageX + "parent: "+this.parent);
+//                trace('[SLIDE] SCALE:', scaleImageX + "parent: "+this.parent);
                 foto.x = (appmodel.windowWidth - foto.width) /2;
                 foto.y = (appmodel.windowHeight - foto.height) /2;
                 break;
@@ -180,6 +184,10 @@ public class Slide extends Sprite {
                 }
                 break;
         }
+    }
+
+    public function removeResize():void {
+        appmodel.removeEventListener(AppModel.RESIZED, OnResize);
     }
 
     public function createTitle():void {
