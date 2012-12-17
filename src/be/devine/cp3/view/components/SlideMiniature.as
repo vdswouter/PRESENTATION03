@@ -47,7 +47,7 @@ public class SlideMiniature extends Sprite {
         var background:SlideBackground = new SlideBackground(false);
         addChild(background);
 
-        var slide:Slide = new Slide(slidevo);
+        var slide:Slide = new Slide(slidevo, false);
         addChild(slide);
 
         var indexObject:Object = {};

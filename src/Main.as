@@ -31,16 +31,17 @@ public class Main extends MovieClip {
         stage.nativeWindow.title = 'Presentation Engine';
         stage.frameRate = 60;
 
-
         var starling:Starling = new Starling(Application,stage);
         starling.start();
 
         stage.addEventListener(flash.events.Event.RESIZE, resizeHandler );
-        appmodel.addEventListener(AppModel.FULLSCREEN, onFullscreen)
+        appmodel.addEventListener(AppModel.FULLSCREEN, onFullscreen);
     }
 
 
     private function resizeHandler(event:flash.events.Event):void {
+
+//        trace('[MAIN] resize');
 
         appmodel.windowWidth = stage.nativeWindow.width;
         appmodel.windowHeight = stage.nativeWindow.height;

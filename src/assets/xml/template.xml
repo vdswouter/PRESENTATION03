@@ -58,7 +58,7 @@
 
         <slide page="3" type="image" transition="push down">
             <img>
-                <img_path>assets/images/1.jpg</img_path>
+                <img_path>assets/images/3.png</img_path>
                 <scale>0.8</scale>
             </img>
         </slide>

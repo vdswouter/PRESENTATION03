@@ -114,20 +114,42 @@ public class AppModel extends EventDispatcher {
         }
     }
 
+    private var i:uint = 0;
     public function set windowWidth(value:uint):void {
-        _windowWidth = value;
+        if(value <= 100){
+            _windowWidth = 100;
+        }else{
+            _windowWidth = value;
+        }
         Starling.current.viewPort = new Rectangle(0,0,_windowWidth,_windowHeight);
         Starling.current.stage.stageWidth = _windowWidth;
         Starling.current.stage.stageHeight = _windowHeight;
-        this.dispatchEvent(new starling.events.Event(RESIZED));
+
+        i++;
+        if(i == 2){
+            trace('[APPMODEL] WIDTH 2');
+            this.dispatchEvent(new starling.events.Event(RESIZED));
+            i = 0;
+        }
     }
 
     public function set windowHeight(value:uint):void {
-        _windowHeight = value;
+        if(value <= 100){
+            _windowHeight = 100;
+        }else{
+            _windowHeight = value;
+
+        }
         Starling.current.viewPort = new Rectangle(0,0,_windowWidth,_windowHeight);
         Starling.current.stage.stageWidth = _windowWidth;
         Starling.current.stage.stageHeight = _windowHeight;
-        this.dispatchEvent(new starling.events.Event(RESIZED));
+
+        i++;
+        if(i == 2){
+            trace('[APPMODEL] HEIGHT 2');
+            this.dispatchEvent(new starling.events.Event(RESIZED));
+            i = 0;
+        }
     }
 
     public function get windowWidth():uint {
