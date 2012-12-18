@@ -148,10 +148,6 @@ public class Navbar extends Sprite {
             maxClicks = 0;
         else
             maxClicks = (slidesCon.width - bg.width) / miniature.width;
-
-
-        trace('[] calcu:', (slidesCon.width - bg.width) / miniature.width);
-        trace('[] maxclicks:', maxClicks);
     }
 
     public function get currentPos():uint {

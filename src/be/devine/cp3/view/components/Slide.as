@@ -96,16 +96,18 @@ public class Slide extends Sprite {
                 title.x = appmodel.windowWidth /2 - title.width /2;
                 title.y = appmodel.windowHeight /2 - title.height /2;
                 break;
+
             case 'title+list':
                 title.x = appmodel.windowWidth /2 - title.width /2;
                 title.y = 40;
 
-                listCon.x = title.x;
-                listCon.y = stageHeight /2 - listCon.height /2;
-                if(listCon.y <= title.y + title.height){
-                    listCon.y = title.y + title.height + 30;
+                listCon.x = (appmodel.windowWidth - appmodel.windowWidth *.8) /2;
+                listCon.y = appmodel.windowHeight /2 - listCon.height /2;
+                if(listCon.y <= title.y + title.height + 20){
+                    listCon.y = title.y + title.height + 20;
                 }
-                break;
+            break;
+
             case 'image':
                 scaleImgX = foto.scaleX * ((appmodel.windowWidth * .8) / foto.width);
                 scaleImgY = foto.scaleY * ((appmodel.windowHeight * .8) / foto.height);
@@ -118,14 +120,15 @@ public class Slide extends Sprite {
 
                 foto.x = (appmodel.windowWidth - foto.width) /2;
                 foto.y = (appmodel.windowHeight - foto.height) /2;
-                break;
+            break;
+
             case 'image+list':
                 title.x = appmodel.windowWidth /2 - title.width /2;
                 title.y = 40;
                 listCon.x = appmodel.windowWidth /2;
                 listCon.y = appmodel.windowHeight /2 - listCon.height /2;
-                if(listCon.y <= title.y + title.height +30){
-                    listCon.y = title.y + title.height + 30;
+                if(listCon.y <= title.y + title.height + 20){
+                    listCon.y = title.y + title.height + 20;
                 }
 
                 scaleImgX = foto.scaleX * ((appmodel.windowWidth * .4) / foto.width);
@@ -138,11 +141,11 @@ public class Slide extends Sprite {
                 }
 
                 foto.x = appmodel.windowWidth /4 - foto.width /2;
-                foto.y = appmodel.windowHeight /2 - foto.height /2;
+                foto.y = appmodel.windowHeight / 2 - foto.height /2;
                 if(foto.y <= title.y + title.height + 20){
                     foto.y = title.y + title.height + 20;
                 }
-                break;
+            break;
         }
     }
 
@@ -188,9 +191,9 @@ public class Slide extends Sprite {
         }
 
         listCon.x = title.x;
-        listCon.y = stageHeight / 2 - listCon.height / 2;
-        if (listCon.y <= title.y + title.height) {
-            listCon.y = title.y + title.height + 30;
+        listCon.y = appmodel.windowHeight /2 - listCon.height /2;
+        if (listCon.y <= title.y + title.height + 20) {
+            listCon.y = title.y + title.height + 20;
         }
         addChild(listCon);
     }
@@ -254,7 +257,7 @@ public class Slide extends Sprite {
         }
 
         listCon.x = stageWidth /2;
-        listCon.y = stageHeight /2 - listCon.height /2;
+        listCon.y = appmodel.windowHeight /2 - listCon.height /2;
         if(listCon.y <= title.y + title.height){
             listCon.y = title.y + title.height + 30;
         }
@@ -279,7 +282,7 @@ public class Slide extends Sprite {
         }
 
         foto.x = stageWidth /4 - foto.width/2;
-        foto.y = stageHeight /2 - foto.height /2;
+        foto.y = appmodel.windowHeight /2 - foto.height /2;
 
         if(foto.y <= title.y + title.height + 20){
             foto.y =  title.y + title.height + 20;
