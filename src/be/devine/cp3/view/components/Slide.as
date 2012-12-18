@@ -80,7 +80,7 @@ public class Slide extends Sprite {
                 createImageList();
                 break;
             default:
-//                trace("[SLIDE] Er is geen juist slidetype meegegeven");
+                trace("[SLIDE] Er is geen juist slidetype meegegeven");
                 break;
         }
 
