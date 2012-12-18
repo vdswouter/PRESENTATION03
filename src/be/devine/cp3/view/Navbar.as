@@ -90,7 +90,7 @@ public class Navbar extends Sprite {
         addChild(slidesCon);
         setChildIndex(slidesCon,1);
 
-        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
+        maxClicks = (slidesCon.width - bg.width) / miniature.width;
 
         appmodel.addEventListener(AppModel.NAVBAR_PREVIOUS_SLIDE, goToPreviousSlide);
         appmodel.addEventListener(AppModel.NAVBAR_NEXT_SLIDE, goToNextSlide);
@@ -130,6 +130,7 @@ public class Navbar extends Sprite {
 
     private function onResized(e:Event):void {
 
+        removeChild(bg);
         bg = new Quad(appmodel.windowWidth-40, 100);
         bg.setVertexColor(0, colors[0]);
         bg.setVertexColor(1, colors[0]);
@@ -137,9 +138,20 @@ public class Navbar extends Sprite {
         bg.setVertexColor(3, colors[1]);
         bg.x = 20;
         addChild(bg);
-        setChildIndex(bg, 1);
+        setChildIndex(bg, 0);
 
         btnRight.x = appmodel.windowWidth - btnRight.width;
+
+        var checkifBelowZero:Number = slidesCon.width - bg.width;
+
+        if(checkifBelowZero < 0)
+            maxClicks = 0;
+        else
+            maxClicks = (slidesCon.width - bg.width) / miniature.width;
+
+
+        trace('[] calcu:', (slidesCon.width - bg.width) / miniature.width);
+        trace('[] maxclicks:', maxClicks);
     }
 
     public function get currentPos():uint {
