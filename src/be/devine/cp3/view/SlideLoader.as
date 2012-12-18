@@ -68,7 +68,7 @@ public class SlideLoader extends Sprite {
                     transitionSlide.fadeTo(1);
             break;
             case 'push left':
-                    slide.x = 0 - currentSlide.width;
+                    slide.x = 0 - appmodel.windowWidth;
                     addChild(slide);
 
                     transitionCurrSlide.animate('x', appmodel.windowWidth);
@@ -82,38 +82,38 @@ public class SlideLoader extends Sprite {
                     transitionSlide.animate('x', 0);
             break;
             case 'push up':
-                    slide.y = appmodel.windowHeight + slide.height;
+                    slide.y = appmodel.windowHeight;
                     addChild(slide);
 
                     transitionCurrSlide.animate('y', -(currentSlide.height+currentSlide.bounds.y));
                     transitionSlide.animate('y', 0);
             break;
             case 'push down':
-                    slide.y = -slide.height;
+                    slide.y = -appmodel.windowHeight;
                     addChild(slide);
 
                     transitionCurrSlide.animate('y', appmodel.windowHeight + currentSlide.height);
                     transitionSlide.animate('y', 0);
             break;
             case 'push top left':
-                    slide.x = -slide.width;
-                    slide.y = -slide.height;
+                    slide.x = -appmodel.windowWidth;
+                    slide.y = -appmodel.windowHeight;
                     addChild(slide);
 
                     transitionCurrSlide.moveTo(appmodel.windowWidth, appmodel.windowHeight);
                     transitionSlide.moveTo(0, 0);
             break;
             case 'push top right':
-                    slide.x = appmodel.windowWidth + slide.width;
-                    slide.y = appmodel.windowHeight + slide.height;
+                    slide.x = appmodel.windowWidth;
+                    slide.y = -appmodel.windowHeight;
                     addChild(slide);
 
-                    transitionCurrSlide.moveTo(-currentSlide.width, -currentSlide.height);
+                    transitionCurrSlide.moveTo(-currentSlide.width, currentSlide.height);
                     transitionSlide.moveTo(0, 0);
             break;
             case 'push bottom left':
-                    slide.x = -slide.width;
-                    slide.y = appmodel.windowHeight + slide.height;
+                    slide.x = -appmodel.windowWidth;
+                    slide.y = appmodel.windowHeight;
                     addChild(slide);
 
                     transitionCurrSlide.moveTo(appmodel.windowWidth, -appmodel.windowHeight);

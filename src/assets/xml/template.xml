@@ -11,7 +11,7 @@
             <name>Miguel Debruyne</name>
             <created>20/11/12</created>
             <font>quaver</font>
-            <size>16</size>
+            <size>13</size>
             <color>333333</color>
         </user>
 
@@ -34,185 +34,130 @@
     </project>
 
     <slides>
-        <slide page="1" type="image+list" transition="none">
+
+        <slide type="title" transition="alpha">
+            <title>Alex Trochut</title>
+        </slide>
+
+        <slide type="image+list" transition="push left">
             <img>
-                <img_path>assets/images/1.jpg</img_path>
-                <scale>0.8</scale>
+                <img_path>assets/images/alex-trochut.jpg</img_path>
             </img>
-            <title>SLIDE 1 IS DE PIONIER ONDER DE SLIDES</title>
+            <title>BIOGRAFIE</title>
             <list>
-                <text>Dit is het eerste fjdsiqf dmksqjfd sqfjdksqfj dsmqjf </text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-                <text>Dit is het zesde</text>
-                <text>Dit is het zevende</text>
-                <text>Dit is het achtste</text>
+                <text>Geboren op 1981 in Barcelona</text>
+                <text>Joan Trochut: Super-Veloz</text>
+                <text>Moniteurs &amp; Xplicit</text>
+                <text>More is More</text>
+                <text>ADAM</text>
             </list>
         </slide>
 
-        <slide page="2" type="title" transition="none">
-            <title>SLIDE 2 HEEFT EEN TITEL ZOAL JE NOG NOOIT HEBT GEZIEN, ZON TITEL HE ZOALS DEZE, DIE IS ECHT LANG, ZO LANG, TIS CRAZY</title>
+        <slide type="title+list" transition="push right">
+            <title>AWARDS</title>
+            <list>
+                <text>Certificate of Excellence 2005, 2009</text>
+                <text>D&amp;AD 2009</text>
+                <text>Graphics Poster 2008</text>
+                <text>ADC Young Gun 2008</text>
+                <text>Communication Arts 2008</text>
+                <text>Illustrative Berlin Nomination (Young Illustrators Award) 2009</text>
+                <text>laus Or 2008</text>
+                <text>CQ Awards 2009</text>
+            </list>
         </slide>
 
-        <slide page="3" type="image" transition="none">
+        <slide type="image+list" transition="push up">
             <img>
-                <img_path>assets/images/3.png</img_path>
-                <scale>0.8</scale>
+                <img_path>assets/images/levante.jpeg</img_path>
             </img>
-        </slide>
-
-        <slide page="4" type="title+list" transition="push right">
-            <title>SLIDE 4 IS EEN SLIDE DIE MASSAS AWESOME IS, DAAROM DAT IK HEM OOK ZO LANG MAAK</title>
+            <title>TIJD EN STROMING</title>
             <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
+                <text>Experimenteren met text</text>
+                <text>Retro of modern</text>
+                <text>Abstracte werken</text>
+                <text>Niet echt een bepaalde kunststroming</text>
+                <text>Neo Deco -> Art Deco</text>
             </list>
         </slide>
 
-        <slide page="5" type="title+list" transition="alpha">
-            <title>SLIDE 5</title>
+        <slide type="title" transition="push down">
+            <title>WERKEN</title>
+        </slide>
+
+        <slide type="title+list" transition="zoom">
+            <title>ARCADE OF FIRE</title>
             <list>
-                <text>Dit is het qsdf</text>
-                <text>Dit is het tqsdfwweede</text>
-                <text>Dit is het dewxcvrde</text>
-                <text>Dit is het viwcverde</text>
-                <text>Dit is het viwxvjfde</text>
+                <text>Another Planet Entertainment</text>
+                <text>Denim</text>
+                <text>Borduurwerk</text>
+                <text>Bleekmiddel</text>
+                <text>Volledig analoog</text>
             </list>
         </slide>
 
-        <slide page="6" type="title+list" transition="zoom">
-            <title>SLIDE 6</title>
-            <list>
-                <text>Dit is het 45342</text>
-                <text>Dit is het 757</text>
-                <text>Dit is het der4242de</text>
-                <text>Dit is het vie7277rde</text>
-                <text>Dit is het 7578723</text>
-            </list>
-        </slide>
-
-        <slide page="7" type="title+list" transition="alpha">
-            <title>SLIDE 7</title>
-            <list>
-                <text>Dit is het iyokl</text>
-                <text>Dit is het azeqsd</text>
-                <text>Dit is het cbncv;</text>
-                <text>Dit is het azer</text>
-                <text>Dit is het iomhjk;</text>
-            </list>
-        </slide>
-
-        <slide page="8" type="title+list" transition="zoom">
-            <title>SLIDE 8</title>
-            <list>
-                <text>Dit is het qdsqd</text>
-                <text>Dit is het 7857838</text>
-                <text>Dit is het sdfsf</text>
-                <text>Dit is het 72421</text>
-                <text>Dit is het xcvbc</text>
-            </list>
-        </slide>
-
-        <slide page="9" type="title+list" transition="push top left">
-            <title>SLIDE 9</title>
-            <list>
-                <text>Dit is het 75312</text>
-                <text>Dit is het 78354</text>
-                <text>Dit is het 53735</text>
-                <text>Dit is het 727</text>
-                <text>Dit is het 7832</text>
-            </list>
-        </slide>
-
-        <slide page="10" type="title+list" transition="push top right">
-            <title>SLIDE 10</title>
-            <list>
-                <text>Dit is het iolhj</text>
-                <text>Dit is het qsdqs</text>
-                <text>Dit is het dfgj</text>
-                <text>Dit is het itultiu</text>
-                <text>Dit is het zaetd</text>
-            </list>
-        </slide>
-
-        <slide page="11" type="title+list" transition="push bottom left">
-            <title>SLIDE 11</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-
-        <slide page="12" type="title+list" transition="push bottom right">
-            <title>SLIDE 12</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-
-        <slide page="13" type="title+list" transition="push right">
-            <title>SLIDE 13</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-
-        <slide page="14" type="title+list" transition="push right">
-            <title>SLIDE 14</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-
-        <slide page="15" type="title+list" transition="push right">
-            <title>SLIDE 15</title>
-            <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
-            </list>
-        </slide>
-
-        <slide page="16" type="image+list" transition="push right">
+        <slide type="image" transition="push top left">
             <img>
-                <img_path>assets/images/1.jpg</img_path>
-                <scale>0.8</scale>
+                <img_path>assets/images/arcade of fire.jpg</img_path>
             </img>
-            <title>DE LAATSTE SLIDE</title>
+        </slide>
+
+        <slide type="image+list" transition="push bottom left">
+            <img>
+                <img_path>assets/images/creative_review.jpg</img_path>
+            </img>
+            <title>CREATIVE REVIEW MAGAZINE</title>
             <list>
-                <text>Dit is het eerste</text>
-                <text>Dit is het tweede</text>
-                <text>Dit is het derde</text>
-                <text>Dit is het vierde</text>
-                <text>Dit is het vijfde</text>
+                <text>April Editie</text>
+                <text>20 beste logo's ooit ontworpen</text>
+                <text>Winnende logo van 'Woolmark'</text>
             </list>
         </slide>
+
+        <slide type="title+list" transition="push bottom right">
+            <title>V Magazine</title>
+            <list>
+                <text>69ste editie</text>
+                <text>Champion HTF Bantamweight</text>
+                <text>Geen echt font maar een typografisch design</text>
+            </list>
+        </slide>
+
+        <slide type="image" transition="zoom">
+            <img>
+                <img_path>assets/images/v magazine.jpg</img_path>
+            </img>
+        </slide>
+
+        <slide type="image+list" transition="alpha">
+            <img>
+                <img_path>assets/images/neo deco.jpg</img_path>
+            </img>
+            <title>NEO DECO</title>
+            <list>
+                <text>Hype for Type</text>
+                <text>Art Deco geïnspireerd font</text>
+                <text>D&amp;AD Award voor typografie</text>
+                <text>Werd gebruikt door Stylist Magazine in 3tal edities</text>
+            </list>
+        </slide>
+
+        <slide type="title+list" transition="push left">
+            <title>CHIVAS REGAL</title>
+            <list>
+                <text>Monogram gebasseerd op kronkels van stalen lint</text>
+                <text>Dramatische metaalachtige afwerking</text>
+                <text>Ridderschap is iets dat je vertrouwt</text>
+                <text>Letters C en R</text>
+            </list>
+        </slide>
+
+        <slide type="image" transition="none">
+            <img>
+                <img_path>assets/images/chivas regal.jpeg</img_path>
+            </img>
+        </slide>
+
     </slides>
 
 </presentation>
-        <!--<background style="gradient" type="linear">
-            <color>ccffff</color>
-            <color>eeffff</color>
-        </background>-->

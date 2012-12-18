@@ -23,7 +23,7 @@ public class SlideBackground extends Sprite{
 
 
     /**** CONSTRUCTOR ****/
-    public function SlideBackground(resize:Boolean = true) {
+    public function SlideBackground(isResize:Boolean = true) {
         
         appmodel = AppModel.getInstance();
         settingsvo = appmodel.settingsvo;
@@ -31,16 +31,22 @@ public class SlideBackground extends Sprite{
         generateBackground();
         generateInfo();
 
-        if(resize){
+        if(isResize){
             appmodel.addEventListener(AppModel.RESIZED, resizeHandler);
         }
 
+        appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
+    }
+
+    private function currentSlideChanged(e:Event):void {
+
+        infotext.text = appmodel.currentSlide+1 +" / "+ settingsvo.userName +"  -  "+settingsvo.createdDate;
     }
 
     private function generateInfo():void {
 
         var infoTxtConfig:Object = {};
-        infoTxtConfig.text = settingsvo.userName +"  -  "+settingsvo.createdDate;
+        infoTxtConfig.text = appmodel.currentSlide+1 +" / "+ settingsvo.userName +"  -  "+settingsvo.createdDate;
         infoTxtConfig.width = appmodel.windowWidth - 10;
         infoTxtConfig.height = settingsvo.infoFontSize *2;
         infoTxtConfig.fontSize = settingsvo.infoFontSize;

@@ -4,12 +4,12 @@ import be.devine.cp3.VO.SlideVO;
 public class SlideVOFactory {
 
 
-    public static function createSlideVOFromXML(slide:XML):SlideVO {
+    public static function createSlideVOFromXML(slide:XML, pageNumber:uint):SlideVO {
 
 
         var slidevo:SlideVO = new SlideVO();
         slidevo.slideType = slide.@type;
-        slidevo.slideNumber = slide.@page;
+        slidevo.slideNumber = pageNumber;
         slidevo.transition = slide.@transition;
 
         if(slidevo.slideType == "image" || slidevo.slideType == "image+list"    ){

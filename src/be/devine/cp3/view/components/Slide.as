@@ -31,13 +31,18 @@ public class Slide extends Sprite {
     private var listItem:TextField;
     private var fotoLoader:Loader;
     private var foto:Image;
+
     private var stageWidth:uint;
     private var stageHeight:uint;
+    private var _scaleImgX:Number;
+    private var _scaleImgY:Number;
+
 
     // Constructor
-    public function Slide(binnenKomendeSlideVO:SlideVO = null, resize:Boolean = true) {
+    public function Slide(binnenKomendeSlideVO:SlideVO = null, resizeAble:Boolean = true) {
 
         appmodel = AppModel.getInstance();
+
         if(binnenKomendeSlideVO != null){
             slidevo = binnenKomendeSlideVO;
         }else{
@@ -61,7 +66,6 @@ public class Slide extends Sprite {
         listConfig.height = settings.listFontSize + 10;
         listConfig.bullet = settings.bullet;
 
-//        trace("[SLIDE] slidetype: "+slidevo.slideType);
         switch (slidevo.slideType) {
             case 'title':
                 createTitle();
@@ -80,15 +84,12 @@ public class Slide extends Sprite {
                 break;
         }
 
-        if(resize){
+        if(resizeAble){
             appmodel.addEventListener(AppModel.RESIZED, OnResize);
         }
     }
 
     private function OnResize(e:starling.events.Event):void {
-
-        trace('[] parent:', this.parent);
-        trace('[] slidetype:', slidevo.slideType);
 
         switch (slidevo.slideType) {
             case 'title':
@@ -106,51 +107,15 @@ public class Slide extends Sprite {
                 }
                 break;
             case 'image':
-                var scaleImageX:Number;
-                var scaleImageY:Number;
-                var scaleGetalX:Number;
-                var scaleGetalY:Number;
+                scaleImgX = foto.scaleX * ((appmodel.windowWidth * .8) / foto.width);
+                scaleImgY = foto.scaleY * ((appmodel.windowHeight * .8) / foto.height);
 
-                scaleGetalY =  (appmodel.windowHeight * .8) / foto.height;
-                scaleImageY = foto.scaleY * scaleGetalY;
-                scaleGetalX = (appmodel.windowWidth * .8) / foto.width ;
-                scaleImageX = foto.scaleX * scaleGetalX;
-
-                if(scaleImageX < scaleImageY){
-                    foto.scaleX = foto.scaleY = scaleImageX;
+                if(scaleImgX < scaleImgY){
+                    foto.scaleX = foto.scaleY = scaleImgX;
                 }else{
-                    foto.scaleX = foto.scaleY = scaleImageY;
+                    foto.scaleX = foto.scaleY = scaleImgY;
                 }
-//                if(appmodel.windowWidth > appmodel.windowHeight){
-//                    trace('[] if');
-//                    scaleGetal =  (appmodel.windowHeight * .8) / foto.height;
-//                    scaleImage = foto.scaleX * scaleGetal;
-//                }else{
-//                    trace('[] else');
-//                    scaleGetal = (appmodel.windowWidth * .8) / foto.width ;
-//                    scaleImage = foto.scaleX * scaleGetal;
-//                }
-//                if(scaleImage <= 0){
-//                    scaleImage = 0.00001;
-//                }
-                    if(scaleImageX < scaleImageY){
-                        foto.scaleX = foto.scaleY = scaleImageX;
-                    }else{
-                        foto.scaleX = foto.scaleY = scaleImageY;
-                    }
 
-
-//                if(foto.width < foto.height){
-//                    scaleImage = (stageWidth / 3.4) / foto.width;
-//                }else{
-//                    scale = (stageHeight / 3.4) / foto.height;
-//                }
-//
-//                if(scale > 1) scale = 1;
-//                foto.scaleX = foto.scaleY = scale;
-
-
-//                trace('[SLIDE] SCALE:', scaleImageX + "parent: "+this.parent);
                 foto.x = (appmodel.windowWidth - foto.width) /2;
                 foto.y = (appmodel.windowHeight - foto.height) /2;
                 break;
@@ -162,25 +127,20 @@ public class Slide extends Sprite {
                 if(listCon.y <= title.y + title.height +30){
                     listCon.y = title.y + title.height + 30;
                 }
-                var scaleX:Number;
-                var scaleY:Number;
-                var scaleGX:Number;
-                var scaleGY:Number;
 
-                scaleGY =  (appmodel.windowHeight * .4) / foto.height;
-                scaleY = foto.scaleY * scaleGY;
-                scaleGX = (appmodel.windowWidth * .4) / foto.width ;
-                scaleX = foto.scaleX * scaleGX;
+                scaleImgX = foto.scaleX * ((appmodel.windowWidth * .4) / foto.width);
+                scaleImgY = foto.scaleY * ((appmodel.windowHeight * .5) / foto.height);
 
-                if(scaleX < scaleY){
-                    foto.scaleX = foto.scaleY = scaleX;
+                if(scaleImgX < scaleImgY){
+                    foto.scaleX = foto.scaleY = scaleImgX;
                 }else{
-                    foto.scaleX = foto.scaleY = scaleY;
+                    foto.scaleX = foto.scaleY = scaleImgY;
                 }
-                foto.x = appmodel.windowWidth /2 - foto.width - 100;
+
+                foto.x = appmodel.windowWidth /4 - foto.width /2;
                 foto.y = appmodel.windowHeight /2 - foto.height /2;
-                if(foto.y <= title.y + title.height + 50){
-                    foto.y = title.y + title.height + 50;
+                if(foto.y <= title.y + title.height + 20){
+                    foto.y = title.y + title.height + 20;
                 }
                 break;
         }
@@ -249,20 +209,14 @@ public class Slide extends Sprite {
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);
 
         foto = new Image(fotoTexture);
-        var scaleImageX:Number;
-        var scaleImageY:Number;
-        var scaleGetalX:Number;
-        var scaleGetalY:Number;
 
-        scaleGetalY =  (appmodel.windowHeight * .8) / foto.height;
-        scaleImageY = foto.scaleY * scaleGetalY;
-        scaleGetalX = (appmodel.windowWidth * .8) / foto.width ;
-        scaleImageX = foto.scaleX * scaleGetalX;
+        scaleImgY = foto.scaleY * ((appmodel.windowHeight * .8) / foto.height);
+        scaleImgX = foto.scaleX * ((appmodel.windowWidth * .8) / foto.width);
 
-        if(scaleImageX < scaleImageY){
-            foto.scaleX = foto.scaleY = scaleImageX;
+        if(scaleImgX < scaleImgY){
+            foto.scaleX = foto.scaleY = scaleImgX;
         }else{
-            foto.scaleX = foto.scaleY = scaleImageY;
+            foto.scaleX = foto.scaleY = scaleImgY;
         }
         foto.x = (stageWidth - foto.width) /2;
         foto.y = (stageHeight - foto.height) /2;
@@ -287,7 +241,7 @@ public class Slide extends Sprite {
         var yPos:uint = 0;
         listCon = new Sprite();
 
-        listConfig.width = 400;
+        listConfig.width = stageWidth/2 - 100;
         listConfig.hAlign = HAlign.LEFT;
         listConfig.vAlign = VAlign.CENTER;
 
@@ -314,28 +268,47 @@ public class Slide extends Sprite {
         var fotoTexture:Texture = Texture.fromBitmapData(fotoBitmapData);
 
         foto = new Image(fotoTexture);
-        var scaleX:Number;
-        var scaleY:Number;
-        var scaleGX:Number;
-        var scaleGY:Number;
 
-        scaleGY =  (appmodel.windowHeight * .4) / foto.height;
-        scaleY = foto.scaleY * scaleGY;
-        scaleGX = (appmodel.windowWidth * .4) / foto.width ;
-        scaleX = foto.scaleX * scaleGX;
+        scaleImgX = foto.scaleX * ((appmodel.windowWidth * .4) / foto.width);
+        scaleImgY = foto.scaleY * ((appmodel.windowHeight * .5) / foto.height);
 
-        if(scaleX < scaleY){
-            foto.scaleX = foto.scaleY = scaleX;
+        if(scaleImgX < scaleImgY){
+            foto.scaleX = foto.scaleY = scaleImgX;
         }else{
-            foto.scaleX = foto.scaleY = scaleY;
+            foto.scaleX = foto.scaleY = scaleImgY;
         }
 
-        foto.x = stageWidth /2 - foto.width - 100;
+        foto.x = stageWidth /4 - foto.width/2;
         foto.y = stageHeight /2 - foto.height /2;
-        if(foto.y <= title.y + title.height + 50){
-            foto.y = title.y + title.height + 50;
+
+        if(foto.y <= title.y + title.height + 20){
+            foto.y =  title.y + title.height + 20;
         }
         addChild(foto);
+    }
+
+    public function get scaleImgX():Number {
+        return _scaleImgX;
+    }
+
+    public function set scaleImgX(value:Number):void {
+
+        if(_scaleImgX != value){
+            _scaleImgX = value;
+            if(_scaleImgX > 1) _scaleImgX = 1;
+        }
+    }
+
+    public function get scaleImgY():Number {
+        return _scaleImgY;
+    }
+
+    public function set scaleImgY(value:Number):void {
+
+        if(_scaleImgY != value){
+            _scaleImgY = value;
+            if(_scaleImgY > 1) _scaleImgY = 1;
+        }
     }
 }
 }

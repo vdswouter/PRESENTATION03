@@ -53,8 +53,12 @@ public class Application extends Sprite{
             case Keyboard.SPACE:
                     if(isNavbar)
                         navbarTween.animate('y', appmodel.windowHeight);
-                    else
-                        navbarTween.animate('y', appmodel.windowHeight - navbar.height-20);
+                    else{
+                        if(appmodel.fullscreen)
+                            navbarTween.animate('y', appmodel.windowHeight - navbar.height);
+                        else
+                            navbarTween.animate('y', appmodel.windowHeight - navbar.height-20);
+                    }
 
                     Starling.juggler.add(navbarTween);
                     isNavbar = !isNavbar;
@@ -73,12 +77,16 @@ public class Application extends Sprite{
         }
     }
 
-
     private function onResized(e:Event):void {
-        if(isNavbar)
-            navbar.y = appmodel.windowHeight - navbar.height-20;
-        else
+
+        if(isNavbar){
+            if(appmodel.fullscreen)
+                navbar.y = appmodel.windowHeight - navbar.height;
+            else
+                navbar.y = appmodel.windowHeight - navbar.height-20;
+        } else {
             navbar.y = appmodel.windowHeight;
+        }
     }
 }
 }

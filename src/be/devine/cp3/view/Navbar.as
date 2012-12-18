@@ -36,7 +36,7 @@ public class Navbar extends Sprite {
     private var btnLeft:Button;
 
     private var maxClicks:uint;
-    private var currentPos:uint = 0;
+    private var _currentPos:uint = 0;
 
 
     // Constructor
@@ -90,8 +90,26 @@ public class Navbar extends Sprite {
         addChild(slidesCon);
         setChildIndex(slidesCon,1);
 
+        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
+
         appmodel.addEventListener(AppModel.NAVBAR_PREVIOUS_SLIDE, goToPreviousSlide);
         appmodel.addEventListener(AppModel.NAVBAR_NEXT_SLIDE, goToNextSlide);
+        appmodel.addEventListener(AppModel.CURRENT_SLIDE_CHANGED, currentSlideChanged);
+    }
+
+    private function currentSlideChanged(e:Event):void {
+
+        if(appmodel.currentSlide+1 == appmodel.slides.length){
+            currentPos = maxClicks;
+        }
+        else if(appmodel.currentSlide+1 == 1){
+            currentPos = 0;
+        }
+        else if(appmodel.currentSlide+1 > 9){
+            goToNextSlide();
+        } else {
+            goToPreviousSlide();
+        }
     }
 
     private function setClickedSlide(e:Event):void {
@@ -100,30 +118,15 @@ public class Navbar extends Sprite {
         appmodel.currentSlide = clickedSlideVO.slidevo.slideNumber -1;
     }
 
-    private function goToPreviousSlide(e:Event):void {
+    private function goToPreviousSlide(e:Event = null):void {
 
-        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
-        if(currentPos > 0){
-            currentPos--;
-            slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
-            slidesConTween.animate('x', (-currentPos*(miniature.width+10))+30);
-        }
-
-        Starling.juggler.add(slidesConTween);
+        if(_currentPos > 0) currentPos--;
     }
 
-    private function goToNextSlide(e:Event):void {
+    private function goToNextSlide(e:Event = null):void {
 
-        maxClicks = uint((slidesCon.width - bg.width)/miniature.width);
-        if(currentPos < maxClicks){
-            currentPos ++;
-            slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
-            slidesConTween.animate('x', (-currentPos*(miniature.width+10))+30);
-        }
-
-        Starling.juggler.add(slidesConTween);
+        if(_currentPos < maxClicks) currentPos ++;
     }
-
 
     private function onResized(e:Event):void {
 
@@ -137,6 +140,22 @@ public class Navbar extends Sprite {
         setChildIndex(bg, 1);
 
         btnRight.x = appmodel.windowWidth - btnRight.width;
+    }
+
+    public function get currentPos():uint {
+        return _currentPos;
+    }
+
+    public function set currentPos(value:uint):void {
+
+        if(_currentPos != value){
+            _currentPos = value;
+
+            slidesConTween = new Tween(slidesCon, 0.5, Transitions.EASE_OUT);
+            slidesConTween.animate('x', (-_currentPos*(miniature.width+10))+30);
+            Starling.juggler.add(slidesConTween);
+        }
+
     }
 }
 }

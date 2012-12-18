@@ -67,10 +67,12 @@ public class AppModel extends EventDispatcher {
 
         var slidevo:SlideVO;
         slides = new Vector.<SlideVO>();
+        var i:uint = 1;
         for each(var slide:XML in loadedXML.slides.slide){
             slidevo = new SlideVO();
-            slidevo = SlideVOFactory.createSlideVOFromXML(slide);
+            slidevo = SlideVOFactory.createSlideVOFromXML(slide, i);
             slides.push(slidevo);
+            i++;
         }
 
         trace("[AppModel] Parse XML Done");

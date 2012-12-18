@@ -14,27 +14,6 @@ public class TextfieldFactory
         private static const QuaverFont:Class;
 
 
-//        public static function create(width:int,
-//                                      height:int,
-//                                      text:String,
-//                                      autoscale:Boolean = false,
-//                                      color:Number = 0xffffff,
-//                                      fontname:String = "quaver",
-//                                      fontsize:int = 12,
-//                                      align:String = HAlign.LEFT,
-//                                      verticalalign:String = VAlign.TOP
-//                                            ):TextField{
-//
-//            var textfield:TextField = new TextField(width, height, text);
-//            textfield.autoScale = autoscale;
-//            textfield.color = color;
-//            textfield.fontName = fontname;
-//            textfield.fontSize = fontsize;
-//            textfield.hAlign = align;
-//            textfield.vAlign = verticalalign;
-//            return textfield;
-//        }
-
         public static function createTextField(config:Object):TextField {
 
             var t:TextField = new TextField(200, 20, 'dummy text');
